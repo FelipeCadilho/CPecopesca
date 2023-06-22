@@ -111,6 +111,15 @@ CPecopesca <- function(penalidade="Asymptotic",
     #obtém a identificação da amostra
     amostra <<- paste("Sample:",amostra)
 
+    #cria dataframe que alocará os resultados
+    resultados <<- data.frame()
+    resultados[1,1] <<- "Posição do ponto de mudança"
+    resultados[2,1] <<- "Valor do elemento no ponto de mudança"
+    resultados[3,1] <<- "Médias entre as mudanças"
+    resultados[4,1] <<- "Valor da distância no ponto de mudança"
+    colnames(resultados) <<- c("DESCRIÇÃO")
+
+
     #repetição para gerar os gráficos por elemento
     for(a in 2:elementos){
 
@@ -135,6 +144,15 @@ CPecopesca <- function(penalidade="Asymptotic",
 
       #quantidade de pontos de mudanças
       limitePontos <<- length(mudanca@cpts)
+
+      #alocação dos resultados
+      for(o in 1:limitePontos){
+        resultados[1,a] <<- paste(resultados[1,a],mudanca@cpts[o])
+        resultados[2,a] <<- paste(resultados[1,a],dados[mudanca@cpts[o],a])
+        resultados[3,a] <<- paste(resultados[1,a],mudanca@param.est$mean[o])
+        resultados[4,a] <<- paste(resultados[1,a],dados[mudanca@cpts[o],1])
+      }
+      colnames(resultados)[a] <<- c(nome)
 
       #geração do gráfico que receberá posteriormente as linhas de mudança
       plot(x = dados[,1], y = dados[,a], type = "l",
@@ -184,6 +202,7 @@ CPecopesca <- function(penalidade="Asymptotic",
     rm(elementos, envir = .GlobalEnv)
     rm(nome, envir = .GlobalEnv)
     rm(configuracao, envir = .GlobalEnv)
+    write.table(resultados, file='resultados-PCecopesca.csv', sep=',', dec='.', row.names=FALSE)
     return("Processo finalizado.")
   }else{
     return("\nConfigure sua área de trabalho antes de executar o pacote.\n")

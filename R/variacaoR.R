@@ -80,24 +80,24 @@ CPecopesca <- function(penalidade="Asymptotic",
     if(dado == "xlsx"){
       #cria dataframe a partir dos dados da planilha
       if(is.null(planilha)){
-        dados <<- read_excel(nome_dados)
+        dados <<- read_excel(nome_dados, check.names=F, header = TRUE, encoding = "UTF-8")
       }else{
-        dados <<- read_excel(nome_dados, sheet = planilha)
+        dados <<- read_excel(nome_dados, sheet = planilha, check.names=F, header = TRUE, encoding = "UTF-8")
       }
     }else if(dado == "dataframe"){
       #cria dataframe a partir dos dados do dataframe
       dados <<- nome_dados
     }else if(dado == "csv"){
       if(is.null(separador)){
-        dados <<- read.csv(file = nome_dados, header = TRUE)
+        dados <<- read.csv(file = nome_dados, check.names=F, header = TRUE, encoding = "UTF-8")
       }else{
-        dados <<- read.csv(file = nome_dados, header = TRUE, sep = separador)
+        dados <<- read.csv(file = nome_dados, header = TRUE, check.names=F, sep = separador, encoding = "UTF-8")
       }
     }else if(dado == "txt"){
       if(is.null(separador)){
           cat("Necessário informar separador de arquivos em txt.")
       }else{
-        dados <<- read.delim2(nome_dados, sep=separador)
+        dados <<- read.delim2(nome_dados, sep=separador,check.names=F, header = TRUE, encoding = "UTF-8")
       }
     }
 
@@ -127,7 +127,7 @@ CPecopesca <- function(penalidade="Asymptotic",
       nome <<- colnames(dados[a])
 
       #função de identificação de mudança de ponto
-      mudanca <<-cpt.mean(dados[,a],
+      mudanca <<-cpt.mean(as.numeric(unlist(dados[,a])),
                           penalty=penalidade,
                           pen.value=pen.valor,
                           method=metodo,

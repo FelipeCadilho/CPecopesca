@@ -1,5 +1,6 @@
 #' Pacote para executar o changepoint por distância
 #'
+#' @param mudaEixoY Para personalizar o eixo y informe o valor 1, senão 0 (Padrão).
 #' @param penalidade Escolha das penalidades "None", "SIC", "BIC", "MBIC", AIC", "Hannan-Quinn", "Asymptotic", "Manual" e "CROPS". Se for especificado Manual, a penalidade manual será incluída no parâmetro pen.value. Se Asymptotic for especificado, o erro teórico tipo I está contido no parâmetro pen.value. Se CROPS for especificado, o intervalo de penalidade está contido no parâmetro pen.value; observe que este é um vetor de comprimento 2 que contém o valor de penalidade mínimo e máximo. Nota CROPS só pode ser usado se o método for "PELT". As penalidades predefinidas listadas CONTAM o changepoint como um parâmetro, postfix a 0 por exemplo "SIC0" para NÃO contar o changepoint como um parâmetro.
 #' @param pen.valor O erro teórico tipo I, por exemplo, 0,05 ao usar a penalidade Assintótica. Um vetor de comprimento 2 (min,max) se estiver usando a penalidade CROPS. O valor da penalidade ao usar a opção de penalidade manual - pode ser um valor numérico ou um texto que forneça a fórmula a ser usada. As variáveis disponíveis são, n=comprimento dos dados originais, nulo=probabilidade nula, alt=probabilidade alternativa, tau=ponto de mudança proposto, diffparam=diferença no número de parâmetros alternativos e nulos.
 #' @param metodo Escolha de "AMOC", "PELT", "SegNeigh" ou "BinSeg".
@@ -10,7 +11,8 @@
 #' @export
 #'
 #' @examples
-CPecopesca <- function(penalidade="Asymptotic",
+CPecopesca <- function(mudaEixoY=0,
+                       penalidade="Asymptotic",
                        pen.valor=0.05,
                        metodo="PELT",
                        teste.stat="Normal",
@@ -95,7 +97,7 @@ CPecopesca <- function(penalidade="Asymptotic",
       }
     }else if(dado == "txt"){
       if(is.null(separador)){
-          cat("Necessário informar separador de arquivos em txt.")
+          cat("\nNecessário informar separador de arquivos em txt.\n")
       }else{
         dados <<- read.delim2(nome_dados, sep=separador,check.names=F, header = TRUE, encoding = "UTF-8")
       }
@@ -154,10 +156,19 @@ CPecopesca <- function(penalidade="Asymptotic",
       }
       colnames(resultados)[a] <<- c(nome)
 
+      #determinação do limite inferior do eixo y
+      cat("\nInforme o limite inferior do eixo y para o elemento",nome,":\n")
+      yMin <- scan(n=1)
+
+      #determinação do limite superior do eixo y
+      cat("\nInforme o limite superior do eixo y",nome,":\n")
+      yMax <- scan(n=1)
+
       #geração do gráfico que receberá posteriormente as linhas de mudança
       plot(x = dados[,1], y = dados[,a], type = "l",
            xlab = "Distance (µm)",
-           ylab = nome)
+           ylab = nome,
+           ylim = c(yMin,yMax))
       title(main = amostra,
             xlab = "Distance (µm)",
             ylab = nome)

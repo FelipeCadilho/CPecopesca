@@ -11,8 +11,7 @@
 #' @export
 #'
 #' @examples
-CPecopesca <- function(mudaEixoY=0,
-                       penalidade="Asymptotic",
+CPecopesca <- function(penalidade="Asymptotic",
                        pen.valor=0.05,
                        metodo="PELT",
                        teste.stat="Normal",
@@ -107,6 +106,15 @@ CPecopesca <- function(mudaEixoY=0,
     cat("\nInforme a identificação da amostra.\n")
     amostra <<- readLines(n=1)
 
+    #pergunta sobre eixo y
+    cat("\nDeseja alterar os eixos y de cada gráfico? S/N\n")
+    eixo = toupper(readLines(n=1))
+    if(eixo=="S"||eixo=="Y"){
+      mudaEixoY <- 1
+    }else{
+      mudaEixoY <- 0
+    }
+
     #quantidade de elementos
     elementos <<- length(dados)
 
@@ -156,23 +164,32 @@ CPecopesca <- function(mudaEixoY=0,
       }
       colnames(resultados)[a] <<- c(nome)
 
-      #determinação do limite inferior do eixo y
-      cat("\nInforme o limite inferior do eixo y para o elemento",nome,":\n")
-      yMin <- scan(n=1)
+      if(mudaEixoY==1){
+          #determinação do limite inferior do eixo y
+          cat("\nInforme o limite inferior do eixo y para o elemento",nome,":\n")
+          yMin <- scan(n=1)
 
-      #determinação do limite superior do eixo y
-      cat("\nInforme o limite superior do eixo y",nome,":\n")
-      yMax <- scan(n=1)
+          #determinação do limite superior do eixo y
+          cat("\nInforme o limite superior do eixo y",nome,":\n")
+          yMax <- scan(n=1)
 
-      #geração do gráfico que receberá posteriormente as linhas de mudança
-      plot(x = dados[,1], y = dados[,a], type = "l",
-           xlab = "Distance (µm)",
-           ylab = nome,
-           ylim = c(yMin,yMax))
-      title(main = amostra,
-            xlab = "Distance (µm)",
-            ylab = nome)
-
+          #geração do gráfico que receberá posteriormente as linhas de mudança
+          plot(x = dados[,1], y = dados[,a], type = "l",
+               xlab = "Distance (µm)",
+               ylab = nome,
+               ylim = c(yMin,yMax))
+          title(main = amostra,
+                xlab = "Distance (µm)",
+                ylab = nome)
+      }else{
+          #geração do gráfico que receberá posteriormente as linhas de mudança
+          plot(x = dados[,1], y = dados[,a], type = "l",
+               xlab = "Distance (µm)",
+               ylab = nome)
+          title(main = amostra,
+                xlab = "Distance (µm)",
+                ylab = nome)
+      }
       #repetição pela quantidade de pontos de mudanças
       for(i in 1:limitePontos){
 

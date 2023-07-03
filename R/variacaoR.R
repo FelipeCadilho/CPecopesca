@@ -308,10 +308,10 @@ CPecopesca <- function(penalidade="Asymptotic",
     medias <<- media
     if(!is.null(compara) && compara!=0){
       cat("\nElementos a serem comparados:\n",colnames(dfnomes),"\n")
-
+      ascores<-c("(cor preta)","(cor vermelha)","(cor azul)")
       if(compara == 1){#dois elementos
         for(i in 1:2){
-          cat("\nDigite o elemento",i,":\n")
+          cat("\nDigite o elemento",i,":",ascores[i],"\n")
           elementosSelecionados[i] <- scan(n=1)
           localizacoes[,i] <<- localiza[,elementosSelecionados[i]]
           medias[,i] <<- media[,elementosSelecionados[i]]
@@ -319,7 +319,7 @@ CPecopesca <- function(penalidade="Asymptotic",
         }
       }else if(compara == 2){#três elementos
         for(i in 1:3){
-          cat("\nDigite o elemento",i,":\n")
+          cat("\nDigite o elemento",i,":",ascores[i],"\n")
           elementosSelecionados[i] <- scan(n=1)
           localizacoes[,i] <<- localiza[,elementosSelecionados[i]]
           medias[,i] <<- media[,elementosSelecionados[i]]

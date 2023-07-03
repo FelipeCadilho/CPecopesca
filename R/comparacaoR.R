@@ -39,14 +39,14 @@ comparacao <- function(comparar, selecao, localizacoes, medias, dados, legendaTi
            type = "l",
            xlab = legendaX,
            ylab = colnames(dados[a]),
-           col = "#336633",
+           col = "#000000",
            ylim = c(yMin,yMax))
       par(new=TRUE)
       plot(dados[,b]~dados[,1],
            type="l",
            axes=FALSE,
            ann=FALSE,
-           col = "#0666cc",
+           col = "#ff0000",
            ylim = c(yMin,yMax))
       mtext(colnames(dados[b]),
             side=4,
@@ -54,7 +54,7 @@ comparacao <- function(comparar, selecao, localizacoes, medias, dados, legendaTi
       axis(4)
       title(main = legendaTitulo,
             xlab = legendaX)
-      cores = c("red","red")
+      cores = c("#000000","#990000")
       for(h in 1:2){
 
         limitePontos <- length(localizacoes[,h])-length(which(is.na(localizacoes[,h])))
@@ -155,7 +155,7 @@ comparacao <- function(comparar, selecao, localizacoes, medias, dados, legendaTi
              type = "l",
              xlab = legendaX,
              ylab = colnames(dados[a]),
-             col = "#336633",
+             col = "#000000",
              #lty  = 1,
              ylim = c(yMin,yMax))
         par(new=TRUE)
@@ -163,7 +163,7 @@ comparacao <- function(comparar, selecao, localizacoes, medias, dados, legendaTi
              type = "l",
              axes = FALSE,
              ann  = FALSE,
-             col = "#0666cc",
+             col = "#ff0000",
              #lty   = 2,
              ylim = c(yMin,yMax))
         par(new=TRUE)
@@ -171,7 +171,7 @@ comparacao <- function(comparar, selecao, localizacoes, medias, dados, legendaTi
              type = "l",
              axes = FALSE,
              ann  = FALSE,
-             #col = "#933300",
+             col = "#0099ff",
              #lty  = 3,
              ylim = c(yMin,yMax))
         mtext(paste(colnames(dados[b]),",",colnames(dados[c])),
@@ -182,7 +182,7 @@ comparacao <- function(comparar, selecao, localizacoes, medias, dados, legendaTi
               xlab = legendaX)
 
       #cores das linhas de mudança
-      cores = c("red","red","red")
+      cores = c("#000000","#990000","#0000ff")
       #cores = c(1,2,3)
 
       for(h in 1:3){

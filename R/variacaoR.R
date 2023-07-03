@@ -85,10 +85,10 @@ CPecopesca <- function(penalidade="Asymptotic",
     cat("\nQual idioma do gráfico:\n1) Inglês\n2) Português\n")
     idioma = scan(n=1)
     if(isTRUE(idioma) && idioma==2){
-      legendaTitulo <- "Amostra:"
+      #legendaTitulo <- "Amostra:"
       legendaX <- paste("Distância do núcleo à borda",un)
     }else{
-      legendaTitulo <- "Sample:"
+      #legendaTitulo <- "Sample:"
       legendaX <- paste("Distance from core to edge",un)
     }
 
@@ -169,7 +169,7 @@ CPecopesca <- function(penalidade="Asymptotic",
     elementos <<- length(dados)
 
     #obtém a identificação da amostra
-    amostra <<- paste(legendaTitulo,amostra)
+    #amostra <<- paste(legendaTitulo,amostra)
 
     #cria dataframe que alocará os resultados
     resultados <<- data.frame()

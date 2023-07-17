@@ -22,7 +22,7 @@ where the distance between the core and the edge is essential on the x-axis to r
 ## Step-by-step to Execute the Package
 1. Set the working directory in RStudio to the directory where the data file is located.
   * Set the directory using the `setwd()` command or through the Files panel in the `Files` tab.
->Example 1: setwd("C:/User/Usuário da Máquina/Documents")
+>Example 1: setwd("C:/User/UserPC/Documents")
 
 >Example 2: https://youtu.be/QzSV8wvA1Do
 

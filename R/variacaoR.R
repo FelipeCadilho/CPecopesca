@@ -1,11 +1,11 @@
 #' Pacote para executar o changepoint por distância
 #'
-#' @param mudaEixoY Para personalizar o eixo y informe o valor 1, senão 0 (Padrão).
-#' @param penalidade Escolha das penalidades "None", "SIC", "BIC", "MBIC", AIC", "Hannan-Quinn", "Asymptotic", "Manual" e "CROPS". Se for especificado Manual, a penalidade manual será incluída no parâmetro pen.value. Se Asymptotic for especificado, o erro teórico tipo I está contido no parâmetro pen.value. Se CROPS for especificado, o intervalo de penalidade está contido no parâmetro pen.value; observe que este é um vetor de comprimento 2 que contém o valor de penalidade mínimo e máximo. Nota CROPS só pode ser usado se o método for "PELT". As penalidades predefinidas listadas CONTAM o changepoint como um parâmetro, postfix a 0 por exemplo "SIC0" para NÃO contar o changepoint como um parâmetro.
-#' @param pen.valor O erro teórico tipo I, por exemplo, 0,05 ao usar a penalidade Assintótica. Um vetor de comprimento 2 (min,max) se estiver usando a penalidade CROPS. O valor da penalidade ao usar a opção de penalidade manual - pode ser um valor numérico ou um texto que forneça a fórmula a ser usada. As variáveis disponíveis são, n=comprimento dos dados originais, nulo=probabilidade nula, alt=probabilidade alternativa, tau=ponto de mudança proposto, diffparam=diferença no número de parâmetros alternativos e nulos.
-#' @param metodo Escolha de "AMOC", "PELT", "SegNeigh" ou "BinSeg".
-#' @param teste.stat A estatística/distribuição de teste assumida dos dados. Atualmente, apenas "Normal" e "CUSUM" são suportados.
-#' @param tamSegmMin Inteiro positivo fornecendo o comprimento mínimo do segmento (nº de observações entre as alterações), o padrão é o mínimo permitido pela teoria.
+#' @param mudaEixoY To customize the y-axis, enter the value 1, otherwise 0 (Default).
+#' @param penalidade Choose from the penalties 'None', 'SIC', 'BIC', 'MBIC', 'AIC', 'Hannan-Quinn', 'Asymptotic', 'Manual', and 'CROPS'. If 'Manual' is specified, the manual penalty will be included in the parameter 'pen.value'. If 'Asymptotic' is specified, the theoretical type I error is contained in the parameter 'pen.value'. If 'CROPS' is specified, the penalty range is contained in the parameter 'pen.value'; note that this is a vector of length 2 containing the minimum and maximum penalty value. Note that 'CROPS' can only be used if the method is 'PELT'. The predefined penalties listed COUNT the changepoint as a parameter, postfix a 0 for example 'SIC0' to NOT count the changepoint as a parameter.
+#' @param pen.valor The theoretical type I error, for example, 0.05 when using the Asymptotic penalty. A vector of length 2 (min, max) if using the CROPS penalty. The penalty value when using the manual penalty option - it can be a numeric value or a text providing the formula to be used. The available variables are n = length of the original data, null = null probability, alt = alternative probability, tau = proposed change point, diffparam = difference in the number of alternative and null parameters.
+#' @param metodo Choose between 'AMOC', 'PELT', 'SegNeigh', or 'BinSeg'.
+#' @param teste.stat The assumed test statistic/distribution of the data. Currently, only 'Normal' and 'CUSUM' are supported.
+#' @param tamSegmMin Positive integer providing the minimum length of the segment (number of observations between changes), the default is the minimum allowed by theory.
 #'
 #' @return
 #' @export
@@ -17,46 +17,46 @@ CPecopesca <- function(penalidade="Asymptotic",
                        teste.stat="Normal",
                        tamSegmMin=1,
                        un="(µm)"){
-  #aviso inicial
+  #initial notice
   cat("\nConfigurou o local do seu arquivo de dados como
       \ndiretório de trabalho do ambiente R antes de executar este pacote? S/N\n")
   configuracao <<- toupper(readLines(n=1))
 
   if(configuracao == "S"||configuracao == "Y"){
 
-    #pacotes necessários para o funcionamento deste pacote
+    #packages needed for this package to work
     cat("\nEssa é a primeira execução após instalação deste pacote? S/N\n")
     pacote = toupper(readLines(n=1))
 
     if(pacote == "S"|| pacote == "Y"){
 
-      #instala e chama pacote que lê planilha em excel
+      #install and call a package that reads excel sheets
       install.packages("readxl")
       library("readxl")
 
-      #instala e chama pacote de controle de dados
+      #install and call data control package
       install.packages("dplyr")
       library("dplyr")
 
-      #instala e chama pacote de busca por mudança em frequencia
+      #install and call frequency change search package
       install.packages("changepoint")
       library("changepoint")
 
-      #instala e chama pacote de manipulação de strings
+      #install and call string manipulation package
       install.packages("stringr")
       library("stringr")
 
     }else{
-      #chama pacote que lê planilha em excel
+      #call package that reads spreadsheet in excel
       library("readxl")
 
-      #chama pacote de controle de dados
+      #calls data control package
       library("dplyr")
 
-      #chama pacote de busca por mudança em frequencia
+      #call frequency change seek packet
       library("changepoint")
 
-      #instala e chama pacote de manipulação de strings
+      #install and call string manipulation package
       library("stringr")
     }
 
@@ -77,11 +77,11 @@ CPecopesca <- function(penalidade="Asymptotic",
       tamSegmMin <- scan(n=1)
     }
 
-    #definição da unidade de medida
+    #definition of the unit of measure
     cat("\nQual unidade de medida da distância?\n")
     un = paste("(",readLines(n=1),")",sep="")
 
-    #definição do idioma do gráfico
+    #chart language setting
     cat("\nQual idioma do gráfico:\n1) Inglês\n2) Português\n")
     idioma = scan(n=1)
     if(isTRUE(idioma) && idioma==2){
@@ -93,13 +93,13 @@ CPecopesca <- function(penalidade="Asymptotic",
     }
 
 ################################################################################
-## INÍCIO DA ENTRADA DE DADOS
+## START OF DATA ENTRY
 ################################################################################
-    #nome do arquivo de dados
+    #data file name
     cat("\nDigite o nome do arquivo de dados com a extensão.(E.g. nome_dados.xlsx)\n")
     nome_dados <<- readLines(n=1)
 
-    #extensão do aquivo de dados
+    #data file extension
     cat("\nInforme o número referente a extensão do arquivo de dados:\n1-xls ou xlsx (Padrão)\n2-csv\n3-txt\n4-Dataframe\n")
     tipo_dados = scan(n=1)
     if(tipo_dados == 1){
@@ -149,14 +149,14 @@ CPecopesca <- function(penalidade="Asymptotic",
       }
     }
 ################################################################################
-## FIM DA ENTRADA DE DADOS
+## END OF DATA ENTRY
 ################################################################################
 
-    #identificação da amostra
+    #sample identification
     cat("\nInforme a identificação da amostra.\n")
     amostra <<- readLines(n=1)
 
-    #pergunta sobre eixo y
+    #y-axis question
     cat("\nDeseja alterar os eixos y de cada gráfico? S/N\n")
     eixo = toupper(readLines(n=1))
     if(eixo=="S"||eixo=="Y"){
@@ -165,13 +165,13 @@ CPecopesca <- function(penalidade="Asymptotic",
       mudaEixoY <- 0
     }
 
-    #quantidade de elementos
+    #amount of elements
     elementos <<- length(dados)
 
-    #obtém a identificação da amostra
+    #get the sample id
     #amostra <<- paste(legendaTitulo,amostra)
 
-    #cria dataframe que alocará os resultados
+    #creates dataframe that will allocate the results
     resultados <<- data.frame()
     localiza <<- data.frame()
     media <<- data.frame()
@@ -181,20 +181,20 @@ CPecopesca <- function(penalidade="Asymptotic",
     resultados[4,1] <<- "Valor da distância no ponto de mudança"
     colnames(resultados) <<- c("DESCRIÇÃO")
 
-    #nomes para comparação
+    #names for comparison
     dfnomes <<- data.frame()
     dfnomes[1,1] <<- "dist"
 
 ################################################################################
-## INÍCIO DA REPETIÇÃO
+## REPEAT START
 ################################################################################
-    #repetição para gerar os gráficos por elemento
+    #repetition to generate the graphs by element
     for(a in 2:elementos){
 
-      #obtém o nome do elemento atual
+      #get the name of the current element
       nome <<- colnames(dados[a])
 
-      #função de identificação de mudança de ponto
+      #point change identification function
       mudanca <<-cpt.mean(as.numeric(unlist(dados[,a])),
                           penalty=penalidade,
                           pen.value=pen.valor,
@@ -204,18 +204,18 @@ CPecopesca <- function(penalidade="Asymptotic",
                           param.estimates=TRUE,
                           minseglen=tamSegmMin)
 
-      #linha inicial da coluna distância
+      #distance column start row
       limiteDistanciaMin <<- 1
 
-      #quantidade de pontos de mudanças
+      #number of change points
       limitePontos <<- length(mudanca@cpts)
 
-      #nomes para comparação
+      #names for comparison
       tt <<- a-1
       dfnomes[1,tt] <<- paste(tt,": ",nome,sep="")
       colnames(dfnomes)[tt] <<- c(dfnomes[1,tt])
 
-      #alocação dos resultados
+      #allocation of results
       for(o in 1:limitePontos){
         resultados[1,a] <<- paste(resultados[1,a],mudanca@cpts[o])
         localiza[o,tt] <<- mudanca@cpts[o]
@@ -225,19 +225,19 @@ CPecopesca <- function(penalidade="Asymptotic",
         resultados[4,a] <<- paste(resultados[1,a],dados[mudanca@cpts[o],1])
       }
 
-      #nome do elemento atual
+      #current element name
       colnames(resultados)[a] <<- c(nome)
 
       if(mudaEixoY==1){
-          #determinação do limite inferior do eixo y
+          #determining the lower limit of the y-axis
           cat("\nInforme o limite inferior do eixo y para o elemento",nome,":\n")
           yMin <- scan(n=1)
 
-          #determinação do limite superior do eixo y
+          #determining the upper limit of the y-axis
           cat("\nInforme o limite superior do eixo y",nome,":\n")
           yMax <- scan(n=1)
 
-          #geração do gráfico que receberá posteriormente as linhas de mudança
+          #generation of the graph that will later receive the change lines
           plot(x = dados[,1], y = dados[,a], type = "l",
                xlab = paste(legendaX),
                ylab = nome,
@@ -246,7 +246,7 @@ CPecopesca <- function(penalidade="Asymptotic",
                 xlab = paste(legendaX),
                 ylab = nome)
       }else{
-        #geração do gráfico que receberá posteriormente as linhas de mudança
+        #generation of the graph that will later receive the change lines
         plot(x = dados[,1], y = dados[,a], type = "l",
              xlab = paste(legendaX),
              ylab = nome)
@@ -254,43 +254,43 @@ CPecopesca <- function(penalidade="Asymptotic",
               xlab = paste(legendaX),
               ylab = nome)
       }
-      #repetição pela quantidade de pontos de mudanças
+      #repetition by the number of points of changes
       for(i in 1:limitePontos){
 
-          #variável de controle de linhas
+          #line control variable
           k = 1
 
-          #iniciando o dataframe que aportará as linhas de mudança
+          #starting the dataframe that will add the change lines
           linhas <<- data.frame()
 
-          #repetição até o ponto de mudança
+          #repetition to the point of change
           for(j in limiteDistanciaMin:mudanca@cpts[i]){
 
-              #atribui valor da distancia
+              #assign distance value
               linhas[k,1] <<- dados[j,1]
 
-              #atribui valor do elemento
+              #assign element value
               linhas[k,2] <<- mudanca@param.est$mean[i]
 
-              #variável de controle de linhas
+              #line control variable
               k = k+1
           }
 
-          #exibição da linha de mudança gerada
+          #generated change line display
           lines(x = linhas[,1], y = linhas[,2], col = "red", lwd = 3)
 
-          #removedor do objeto contendo a linha
+          #object remover containing line
           rm(linhas, envir = .GlobalEnv)
 
-          #elevando a linha de início para o próximo ciclo
+          #raising the start line for the next cycle
           limiteDistanciaMin <<- mudanca@cpts[i]+1
       }
     }
 ################################################################################
-## FIM DA REPETIÇÃO
+## END OF REPEAT
 ################################################################################
 
-    #removedor de objetos
+    #object remover
     rm(linhas, envir = .GlobalEnv)
     rm(limiteDistanciaMin, envir = .GlobalEnv)
     rm(limitePontos, envir = .GlobalEnv)
@@ -299,7 +299,7 @@ CPecopesca <- function(penalidade="Asymptotic",
     rm(configuracao, envir = .GlobalEnv)
     rm(configuracaoParametros, envir = .GlobalEnv)
 
-    #comparação entre elementos
+    #comparison between elements
     cat("\nDeseja comparar elementos:\n0) Não comparar\n1) 2 elementos\n2) 3 elementos\n")
     compara <- scan(n=1)
 
@@ -329,7 +329,7 @@ CPecopesca <- function(penalidade="Asymptotic",
       comparacao(compara, elementosSelecionados, localizacoes, medias, dados, amostra, legendaX)
     }
 
-    #removedor de objetos
+    #object remover
     rm(dfnomes, envir = .GlobalEnv)
     rm(media, envir = .GlobalEnv)
     rm(tt, envir = .GlobalEnv)

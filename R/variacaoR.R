@@ -1,4 +1,4 @@
-#' Function that performs the changepoint analysis with distance as the x-axis. 
+#' Function that performs changepoint analysis using the distance between the core and the edge of a calcified structure as the x-axis. 
 #'
 #' @param idioma Parameter that determines the language of the prompts. If 1 = Brazilian Portuguese and 2 = English.
 #' @param mudaEixoY To customize the y-axis, enter the value 1, otherwise 0 (Default).

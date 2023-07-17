@@ -3,7 +3,7 @@ This package aims to identify the change point in the concentrations of detected
 where the distance between the core and the edge is essential on the x-axis to relate the year and the concentration change.
 
 ## Package Installation Instructions
-### Prerequisites to Run the Package
+### Prerequisites to install the Package
 * It is recommended to use **RStudio** preferably.
 * Make sure you have the `devtools` or `remotes` packages properly installed.
 ### How to Install
@@ -36,7 +36,7 @@ Este pacote visa identificar o ponto de mudança nas concentrações de elemento
 onde a distância entre o núcleo e a borda é essencial no eixo x para relacionar o ano e a mudança de concentração.
 
 ## Instruções de instalação do pacote
-### Pré-requisitos para executar o pacote
+### Pré-requisitos para instalar o pacote
 * É recomendado utilizar o **RStudio** preferencialmente.
 * Certifique-se de ter os pacotes `devtools` ou `remotes` devidamente instalados.
 ### Como instalar

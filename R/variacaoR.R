@@ -1,4 +1,4 @@
-#' Pacote para executar o changepoint por distância
+#' Function that performs the changepoint analysis with distance as the x-axis. 
 #'
 #' @param mudaEixoY To customize the y-axis, enter the value 1, otherwise 0 (Default).
 #' @param penalidade Choose from the penalties 'None', 'SIC', 'BIC', 'MBIC', 'AIC', 'Hannan-Quinn', 'Asymptotic', 'Manual', and 'CROPS'. If 'Manual' is specified, the manual penalty will be included in the parameter 'pen.value'. If 'Asymptotic' is specified, the theoretical type I error is contained in the parameter 'pen.value'. If 'CROPS' is specified, the penalty range is contained in the parameter 'pen.value'; note that this is a vector of length 2 containing the minimum and maximum penalty value. Note that 'CROPS' can only be used if the method is 'PELT'. The predefined penalties listed COUNT the changepoint as a parameter, postfix a 0 for example 'SIC0' to NOT count the changepoint as a parameter.

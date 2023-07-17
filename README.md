@@ -3,7 +3,7 @@ This package aims to identify the change point in the concentrations of detected
 where the distance between the core and the edge is essential on the x-axis to relate the year and the concentration change.
 
 ## Package Installation Instructions
-### Prerequisites to install the Package
+### Prerequisites for Installing the Package
 * It is recommended to use **RStudio** preferably.
 * Make sure you have the `devtools` or `remotes` packages properly installed.
 ### How to Install

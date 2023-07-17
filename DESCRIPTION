@@ -1,12 +1,13 @@
 Package: CPecopesca
 Type: Package
-Title: Pacote para executar o changepoint por distância no eixo x
+Title: A package to perform changepoint analysis by distance on the x-axis and compare results by plotting 2 to 3 graphs in a single plot output.
 Version: 1.1.0
 Author: c(person("Felipe Douglas Mendonça", "Cadilho", email = "sr.cadilho@gmail.com", role = c("aut", "cre")),
              person("Marcus Rodrigues", "da Costa", email = "marcusrc@id.uff.br", role = "aut"),
              person("Paulo Roberto Camponez", "de Almeida", email = "prcalmeida@id.uff.br", role = "aut"))
 Maintainer: Felipe Douglas Mendonça Cadilho <sr.cadilho@gmail.com>
-Description: Pacote para executar o changepoint por distância no eixo x
+Description: This program applies the changepoint package using distance on the x-axis. Additionally, it allows the comparison between 2 or 3 
+results generated in a single plot with the capability to display up to 3 lines as a proxy for the analysis.
 License: GPL (>= 3)
 Encoding: UTF-8
 LazyData: true

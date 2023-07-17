@@ -1,6 +1,6 @@
 Package: CPecopesca
 Type: Package
-Title: Support package for assessing the change in concentration of detected elements in calcified structures.
+Title: Support package to evaluate the change point in the concentration of elements detected in calcified structures.
 Version: 1.1.0
 Author: c(person("Felipe Douglas Mendonça", "Cadilho", email = "sr.cadilho@gmail.com", role = c("aut", "cre")),
              person("Marcus Rodrigues", "da Costa", email = "marcusrc@id.uff.br", role = "aut"),

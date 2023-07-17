@@ -1,5 +1,6 @@
 #' Function that performs the changepoint analysis with distance as the x-axis. 
 #'
+#' @param idioma Parameter that determines the language of the prompts. If 1 = Brazilian Portuguese and 2 = English.
 #' @param mudaEixoY To customize the y-axis, enter the value 1, otherwise 0 (Default).
 #' @param penalidade Choose from the penalties 'None', 'SIC', 'BIC', 'MBIC', 'AIC', 'Hannan-Quinn', 'Asymptotic', 'Manual', and 'CROPS'. If 'Manual' is specified, the manual penalty will be included in the parameter 'pen.value'. If 'Asymptotic' is specified, the theoretical type I error is contained in the parameter 'pen.value'. If 'CROPS' is specified, the penalty range is contained in the parameter 'pen.value'; note that this is a vector of length 2 containing the minimum and maximum penalty value. Note that 'CROPS' can only be used if the method is 'PELT'. The predefined penalties listed COUNT the changepoint as a parameter, postfix a 0 for example 'SIC0' to NOT count the changepoint as a parameter.
 #' @param pen.valor The theoretical type I error, for example, 0.05 when using the Asymptotic penalty. A vector of length 2 (min, max) if using the CROPS penalty. The penalty value when using the manual penalty option - it can be a numeric value or a text providing the formula to be used. The available variables are n = length of the original data, null = null probability, alt = alternative probability, tau = proposed change point, diffparam = difference in the number of alternative and null parameters.
@@ -11,21 +12,31 @@
 #' @export
 #'
 #' @examples
-CPecopesca <- function(penalidade="Asymptotic",
+CPecopesca <- function(idioma=1,
+                       penalidade="Asymptotic",
                        pen.valor=0.05,
                        metodo="PELT",
                        teste.stat="Normal",
                        tamSegmMin=1,
                        un="(µm)"){
   #initial notice
+  if(idioma=2){
+  cat("Did you set the location of your data file as 
+      \nthe working directory of the R environment before running this package? Y/N\n")
+  }else{
   cat("\nConfigurou o local do seu arquivo de dados como
       \ndiretório de trabalho do ambiente R antes de executar este pacote? S/N\n")
+  }
   configuracao <<- toupper(readLines(n=1))
 
   if(configuracao == "S"||configuracao == "Y"){
 
     #packages needed for this package to work
+    if(idioma=2){
+    cat("\nIs this the first execution after installing this package? Y/N\n")
+    }else{
     cat("\nEssa é a primeira execução após instalação deste pacote? S/N\n")
+    }
     pacote = toupper(readLines(n=1))
 
     if(pacote == "S"|| pacote == "Y"){
@@ -61,7 +72,11 @@ CPecopesca <- function(penalidade="Asymptotic",
     }
 
     #definição dos parâmetros da função do changepoint
+    if(idioma=2){
+    cat("\nDo you want to configure the parameters of the changepoint function? Y/N\n")
+    }else{
     cat("\nDeseja configurar os parametros da função changepoint? S/N\n")
+    }
     configuracaoParametros <- toupper(readLines(n=1))
 
     if(!is.null(configuracaoParametros)&&configuracaoParametros=="S"||configuracaoParametros=="Y"){
@@ -78,11 +93,19 @@ CPecopesca <- function(penalidade="Asymptotic",
     }
 
     #definition of the unit of measure
+    if(idioma=2){
+    cat("\nWhat unit of measurement for distance?\n")
+    }else{
     cat("\nQual unidade de medida da distância?\n")
+    }
     un = paste("(",readLines(n=1),")",sep="")
 
     #chart language setting
+    if(idioma=2){
+    cat("\nGraph language:\n1) English\n2) Portuguese\n")
+    }else{
     cat("\nQual idioma do gráfico:\n1) Inglês\n2) Português\n")
+    }
     idioma = scan(n=1)
     if(isTRUE(idioma) && idioma==2){
       #legendaTitulo <- "Amostra:"
@@ -96,15 +119,27 @@ CPecopesca <- function(penalidade="Asymptotic",
 ## START OF DATA ENTRY
 ################################################################################
     #data file name
+    if(idioma=2){
+    cat("\nEnter the name of the data file with the extension. (E.g. data_name.xlsx)\n")
+    }else{
     cat("\nDigite o nome do arquivo de dados com a extensão.(E.g. nome_dados.xlsx)\n")
+    }
     nome_dados <<- readLines(n=1)
 
     #data file extension
+    if(idioma=2){
+    cat("\nEnter the number corresponding to the data file extension:\n1-xls or xlsx (Default)\n2-csv\n3-txt\n4-Dataframe\n")
+    }else{
     cat("\nInforme o número referente a extensão do arquivo de dados:\n1-xls ou xlsx (Padrão)\n2-csv\n3-txt\n4-Dataframe\n")
+    }
     tipo_dados = scan(n=1)
     if(tipo_dados == 1){
       dado <- "xlsx"
+      if(idioma=2){
+      cat("\nEnter the name of the worksheet you want to use. (By default, it is the first one)\n")
+      }else{
       cat("\nInforme o nome da planilha que deseja usar. (Por padrão é a primeira)\n")
+      }
       planilha <<- readLines(n=1)
     }else if(tipo_dados == 2){
       dado <- "csv"
@@ -114,11 +149,19 @@ CPecopesca <- function(penalidade="Asymptotic",
       dado <- "dataframe"
     }else if(is.null(tipo_dados)){
       dado <- "xlsx"
+      if(idioma=2){
+      cat("\nEnter the name of the worksheet you want to use. (By default, it is the first one)\n")
+      }else{
       cat("\nInforme o nome da planilha que deseja usar. (Por padrão é a primeira)\n")
+      }
       planilha <<- readLines(n=1)
     }
     if(dado =="txt"||dado =="csv"){
+        if(idioma=2){
+        cat("\nWhat character was used to separate the columns in the file?\n")
+        }else{
         cat("\nQual caracter foi utilizado para separação das colunas no arquivo?\n")
+        }
         separador = readLines(n=1)
     }else{
       separador = ","
@@ -143,7 +186,12 @@ CPecopesca <- function(penalidade="Asymptotic",
       }
     }else if(dado == "txt"){
       if(is.null(separador)){
+          if(idioma=2){
+          cat("\nPlease provide the file separator for txt files.\n")
+          }else{
           cat("\nNecessário informar separador de arquivos em txt.\n")
+          }
+        return()
       }else{
         dados <<- read.delim2(nome_dados, sep=separador,check.names=F, header = TRUE, encoding = "UTF-8")
       }
@@ -153,11 +201,19 @@ CPecopesca <- function(penalidade="Asymptotic",
 ################################################################################
 
     #sample identification
+    if(idioma=2){
+    cat("\nPlease provide the sample identification.\n")
+    }else{
     cat("\nInforme a identificação da amostra.\n")
+    }
     amostra <<- readLines(n=1)
 
     #y-axis question
+    if(idioma=2){
+    cat("\nDo you want to change the y-axes of each plot? Y/N\n")
+    }else{
     cat("\nDeseja alterar os eixos y de cada gráfico? S/N\n")
+    }
     eixo = toupper(readLines(n=1))
     if(eixo=="S"||eixo=="Y"){
       mudaEixoY <- 1
@@ -174,13 +230,21 @@ CPecopesca <- function(penalidade="Asymptotic",
     #creates dataframe that will allocate the results
     resultados <<- data.frame()
     localiza <<- data.frame()
-    media <<- data.frame()
+    media <<- data.frame()  
+    if(idioma=2){    
+    resultados[1,1] <<- "Position of the change point"
+    resultados[2,1] <<- "Value of the element at the change point"
+    resultados[3,1] <<- "Means between the changes"
+    resultados[4,1] <<- "Value of the distance at the change point"
+    colnames(resultados) <<- c("DESCRIPTION")    
+    }else{
     resultados[1,1] <<- "Posição do ponto de mudança"
     resultados[2,1] <<- "Valor do elemento no ponto de mudança"
     resultados[3,1] <<- "Médias entre as mudanças"
     resultados[4,1] <<- "Valor da distância no ponto de mudança"
     colnames(resultados) <<- c("DESCRIÇÃO")
-
+    }
+    
     #names for comparison
     dfnomes <<- data.frame()
     dfnomes[1,1] <<- "dist"
@@ -230,11 +294,19 @@ CPecopesca <- function(penalidade="Asymptotic",
 
       if(mudaEixoY==1){
           #determining the lower limit of the y-axis
+          if(idioma=2){
+          cat("\nPlease provide the lower limit of the y-axis for the element",nome,":\n")
+          }else{
           cat("\nInforme o limite inferior do eixo y para o elemento",nome,":\n")
+          }
           yMin <- scan(n=1)
 
           #determining the upper limit of the y-axis
-          cat("\nInforme o limite superior do eixo y",nome,":\n")
+          if(idioma=2){
+          cat("\nPlease provide the upper limit of the y-axis for the element",nome,":\n")
+          }else{
+          cat("\nInforme o limite superior do eixo y para o elemento",nome,":\n")
+          }
           yMax <- scan(n=1)
 
           #generation of the graph that will later receive the change lines
@@ -300,33 +372,50 @@ CPecopesca <- function(penalidade="Asymptotic",
     rm(configuracaoParametros, envir = .GlobalEnv)
 
     #comparison between elements
+    if(idioma=2){
+    cat("\nDo you want to compare elements:\n0) Do not compare\n1) 2 elements\n2) 3 elements\n")
+    }else{
     cat("\nDeseja comparar elementos:\n0) Não comparar\n1) 2 elementos\n2) 3 elementos\n")
+    }
     compara <- scan(n=1)
 
     elementosSelecionados <- c()
     localizacoes <<- localiza
     medias <<- media
     if(!is.null(compara) && compara!=0){
+      if(idioma=2){
+      cat("\nElements to be compared:\n",colnames(dfnomes),"\n")
+      ascores<-c("(black color)","(red color)","(blue color)")
+      }else{
       cat("\nElementos a serem comparados:\n",colnames(dfnomes),"\n")
       ascores<-c("(cor preta)","(cor vermelha)","(cor azul)")
-      if(compara == 1){#dois elementos
+      }      
+      if(compara == 1){#two elements
         for(i in 1:2){
-          cat("\nDigite o elemento",i,":",ascores[i],"\n")
+          if(idioma=2){
+          cat("\nEnter the number of element",i,"you want:",ascores[i],"\n")
+          }else{
+          cat("\nDigite o número do elemento",i,"desejado:",ascores[i],"\n")
+          }
           elementosSelecionados[i] <- scan(n=1)
           localizacoes[,i] <<- localiza[,elementosSelecionados[i]]
           medias[,i] <<- media[,elementosSelecionados[i]]
           elementosSelecionados[i] <- elementosSelecionados[i]+1
         }
-      }else if(compara == 2){#três elementos
+      }else if(compara == 2){#three elements
         for(i in 1:3){
-          cat("\nDigite o elemento",i,":",ascores[i],"\n")
+          if(idioma=2){
+          cat("\nEnter the number of element",i,"you want:",ascores[i],"\n")
+          }else{
+          cat("\nDigite o número do elemento",i,"desejado:",ascores[i],"\n")
+          }
           elementosSelecionados[i] <- scan(n=1)
           localizacoes[,i] <<- localiza[,elementosSelecionados[i]]
           medias[,i] <<- media[,elementosSelecionados[i]]
           elementosSelecionados[i] <- elementosSelecionados[i]+1
         }
       }
-      comparacao(compara, elementosSelecionados, localizacoes, medias, dados, amostra, legendaX)
+      comparacao(idioma, compara, elementosSelecionados, localizacoes, medias, dados, amostra, legendaX)
     }
 
     #object remover
@@ -335,8 +424,16 @@ CPecopesca <- function(penalidade="Asymptotic",
     rm(tt, envir = .GlobalEnv)
 
     write.table(resultados, file='resultados-PCecopesca.csv', sep=',', dec='.', row.names=FALSE)
+    if(idioma=2){
+    return("Finished process.")
+    }else{
     return("Processo finalizado.")
+    }
   }else{
-    return("\nConfigure sua área de trabalho antes de executar o pacote.\n")
+    if(idioma=2){
+    return("Set up your working directory before running the package.")
+    }else{
+    return("Configure sua área de trabalho antes de executar o pacote.")
+    }
   }
 }

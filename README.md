@@ -27,7 +27,7 @@ where the distance between the core and the edge is essential on the x-axis to r
 >Example 2: https://youtu.be/QzSV8wvA1Do
 
 2. To load the package functions, execute the command `library(CPecopesca)` in RStudio.
-3. Run the `CPecopesca()` function to initiate the analysis.
+3. Run the `CPecopesca(2)` function to initiate the analysis.
 4. Answer the program's questions to customize the analysis according to your needs.
 5. Upon completion, the function creates a results file in .csv format in the working directory.
 

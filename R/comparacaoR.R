@@ -8,322 +8,361 @@
 #' @param dados Database with the original measurements.
 #' @param legendaTitulo Plot title.
 #' @param legendaX X-axis label.
+#' @param ajuste Set data by moving average.
+#' @param intervalo Interval of moving average. (Optional)
 #'
 #' @return
 #' @export
 #'
 #' @examples
-comparacao <- function(linguagem, comparar, selecao, localizacoes, medias, dados, legendaTitulo, legendaX){
+comparacao <- function(linguagem, comparar, selecao, localizacoes, medias, dados, legendaTitulo, legendaX, ajuste, intervalo=NULL){
 
-    if(comparar==1){#two elements
-      #position of each selected element
-      a <- selecao[1]
-      b <- selecao[2]
-
-      #distance column start row
-      limiteDistanciaMin <<- 1
-
-      #end row of distance column
-      limiteDistanciaMax <<- length(dados[,1])
-
-      #determining the lower limit of the y-axis
-      if(linguagem==2){
-      cat("\nPlease provide the lower limit of the y-axis:\n")
-      }else{
-      cat("\nInforme o limite inferior do eixo y:\n")
+  if(comparar==1){#two elements
+    if(ajuste!="N"){
+      #set by moving average
+      n <- length(dados)
+      resultado <- data.frame()
+      j <- 1
+      reduzido <- intervalo-1
+      for(i in intervalo:n){
+          a <- i-reduzido
+          resultado[1,j] <- planilha[1,i]
+          resultado[2,j] <- mean(rowMeans(planilha[2,a:i]))
+          resultado[3,j] <- mean(rowMeans(planilha[3,a:i]))
+          j <- j+1
       }
-      yMin <- scan(n=1)
-
-      #determining the upper limit of the y-axis
-      if(linguagem==2){
-      cat("\nPlease provide the upper limit of the y-axis:\n")
-      }else{
-      cat("\nInforme o limite superior do eixo y:\n")
-      }
-      yMax <- scan(n=1)
-
-      #generation of the graph that will later receive the change lines
-      par(mar = c(5, 4, 4, 4) + 0.25)
-      plot(dados[,a]~dados[,1],
-           type = "l",
-           xlab = legendaX,
-           ylab = colnames(dados[a]),
-           col = "#000000",
-           ylim = c(yMin,yMax))
-      par(new=TRUE)
-      plot(dados[,b]~dados[,1],
-           type="l",
-           axes=FALSE,
-           ann=FALSE,
-           col = "#ff0000",
-           ylim = c(yMin,yMax))
-      mtext(colnames(dados[b]),
-            side=4,
-            line=3)
-      axis(4)
-      title(main = legendaTitulo,
-            xlab = legendaX)
-      cores = c("#000000","#990000")
-      for(h in 1:2){
-
-        limitePontos <- length(localizacoes[,h])-length(which(is.na(localizacoes[,h])))
-        posicaoMin <- 1
-        #repetition by the number of points of changes
-        for(i in 1:limitePontos){
-
-          #line control variable
-          k = 1
-
-          #starting the dataframe that will add the change lines
-          limiteDistanciaMax <<- localizacoes[i,h]
-
-          #generated change line display
-          lines(c(dados[posicaoMin,1],dados[limiteDistanciaMax,1]), c(medias[i,h],medias[i,h]), col = cores[h], lwd = 3)
-
-          #object remover containing line
-          rm(linhas, envir = .GlobalEnv)
-
-          #raising the start line for the next cycle
-          posicaoMin <- limiteDistanciaMax+1
-
-        }
-      }
-
-      if(linguagem==2){
-      cat("\nProxy line 1: (dashed)\n")
-      }else{
-      cat("\nLinha do proxy 1: (traçada)\n")
-      }
-      rep <- scan(n=1)
-      abline(h=rep,lty=2)
-      #text(x = 200, y = rep+0.05,'Maximum')
-
-      if(linguagem==2){
-      cat("\nProxy line 2: (dashed)\n")
-      }else{
-      cat("\nLinha do proxy 2: (traçada)\n")
-      }
-      rep <- scan(n=1)
-      abline(h=rep,lty=2)
-      #text(x = 200, y = rep+0.05,"Minimum")
-
-      if(linguagem==2){
-      cat("\nProxy line 3: (dotted)\n")
-      }else{
-      cat("\nLinha do proxy 3: (pontilhada)\n")
-      }
-      rep <- scan(n=1)
-      abline(h=rep,lty=3)
-      #text(x = 200, y = rep+0.05,"Mean-1*SD")
-
-      #cat("\nMean-2*SD:\n")
-      #rep <- scan(n=1)
-      #abline(h=rep,lty=2)
-      #text(x = 200, y = rep+0.05,"Mean-2*SD")
-
-      if(linguagem==2){
-      cat("\nValue of the distance where the age is 0:\n")
-      }else{
-      cat("\nValor da distância em que a idade é 0:\n")
-      }
-      rep <- scan(n=1)
-      abline(v=rep,col="#cccccc")
-      text(x = rep+0.03, y = yMax-0.05,"birth")
-
-      if(linguagem==2){
-      cat("\nValue of the distance where the age is 1:\n")
-      }else{
-      cat("\nValor da distância em que a idade é 1:\n")
-      }
-      rep <- scan(n=1)
-      abline(v=rep,col="#cccccc")
-      text(x = rep+0.03, y = yMax-0.05,"1")
-
-      if(linguagem==2){
-      cat("\nValue of the distance where the age is 2:\n")
-      }else{
-      cat("\nValor da distância em que a idade é 2:\n")
-      }
-      rep <- scan(n=1)
-      abline(v=rep,col="#cccccc")
-      text(x = rep+0.03, y = yMax-0.05,"2 years old")
-
-      #object remover
-      rm(limiteDistanciaMin, envir = .GlobalEnv)
-      rm(limiteDistanciaMax, envir = .GlobalEnv)
-      rm(limitePontos, envir = .GlobalEnv)
-      rm(comparar, envir = .GlobalEnv)
-      rm(selecao, envir = .GlobalEnv)
-      rm(localizacoes, envir = .GlobalEnv)
-      rm(medias, envir = .GlobalEnv)
-      rm(legendaTitulo, envir = .GlobalEnv)
-      rm(legendaX, envir = .GlobalEnv)
-      #end of execution
-      return()
-
-    }else if(comparar==2){#three elements
-
-        #position of each selected element
-        a <- selecao[1]
-        b <- selecao[2]
-        c <- selecao[3]
-
-        #distance column start row
-        limiteDistanciaMin <<- 1
-
-        #end row of distance column
-        limiteDistanciaMax <<- length(dados[,1])
-
-        #determining the lower limit of the y-axis
-        if(linguagem==2){
-        cat("\nPlease provide the lower limit of the y-axis:\n")
-        }else{
-        cat("\nInforme o limite inferior do eixo y:\n")
-        }
-        yMin <- scan(n=1)
-
-        #determining the upper limit of the y-axis
-        if(linguagem==2){
-        cat("\nPlease provide the upper limit of the y-axis:\n")
-        }else{
-        cat("\nInforme o limite superior do eixo y:\n")
-        }
-        yMax <- scan(n=1)
-
-        #generation of the graph that will later receive the change lines
-        par(mar = c(5, 4, 4, 4) + 0.25)
-        plot(dados[,a]~dados[,1],
-             type = "l",
-             xlab = legendaX,
-             ylab = colnames(dados[a]),
-             col = "#000000",
-             #lty  = 1,
-             ylim = c(yMin,yMax))
-        par(new=TRUE)
-        plot(dados[,b]~dados[,1],
-             type = "l",
-             axes = FALSE,
-             ann  = FALSE,
-             col = "#ff0000",
-             #lty   = 2,
-             ylim = c(yMin,yMax))
-        par(new=TRUE)
-        plot(dados[,c]~dados[,1],
-             type = "l",
-             axes = FALSE,
-             ann  = FALSE,
-             col = "#0099ff",
-             #lty  = 3,
-             ylim = c(yMin,yMax))
-        mtext(paste(colnames(dados[b]),",",colnames(dados[c])),
-              side=4,
-              line=3)
-        axis(4)
-        title(main = legendaTitulo,
-              xlab = legendaX)
-
-      #change line colors
-      cores = c("#000000","#990000","#0000ff")
-      #cores = c(1,2,3)
-
-      for(h in 1:3){
-        limitePontos <- length(localizacoes[,h])-length(which(is.na(localizacoes[,h])))
-        posicaoMin <- 1
-        #repetition by the number of points of changes
-        for(i in 1:limitePontos){
-
-          #line control variable
-          k = 1
-
-          #starting the dataframe that will add the change lines
-          limiteDistanciaMax <<- localizacoes[i,h]
-
-          #generated change line display
-          lines(c(dados[posicaoMin,1],dados[limiteDistanciaMax,1]), c(medias[i,h],medias[i,h]), col = cores[h], lwd = 3)
-
-          #object remover containing line
-          rm(linhas, envir = .GlobalEnv)
-
-          #raising the start line for the next cycle
-          posicaoMin <- limiteDistanciaMax+1
-
-          }
-      }
-
-      if(linguagem==2){
-      cat("\nProxy line 1: (dashed)\n")
-      }else{
-      cat("\nLinha do proxy 1: (traçada)\n")
-      }
-      rep <- scan(n=1)
-      abline(h=rep,lty=2)
-      #text(x = 200, y = rep+0.05,'Maximum')
-
-      if(linguagem==2){
-      cat("\nProxy line 2: (dashed)\n")
-      }else{
-      cat("\nLinha do proxy 2: (traçada)\n")
-      }
-      rep <- scan(n=1)
-      abline(h=rep,lty=2)
-      #text(x = 200, y = rep+0.05,"Minimum")
-
-      if(linguagem==2){
-      cat("\nProxy line 3: (dotted)\n")
-      }else{
-      cat("\nLinha do proxy 3: (pontilhada)\n")
-      }
-      rep <- scan(n=1)
-      abline(h=rep,lty=3)
-      #text(x = 200, y = rep+0.05,"Mean-1*SD")
-
-      #cat("\nMean-2*SD:\n")
-      #rep <- scan(n=1)
-      #abline(h=rep,lty=2)
-      #text(x = 200, y = rep+0.05,"Mean-2*SD")
-
-      if(linguagem==2){
-      cat("\nValue of the distance where the age is 0:\n")
-      }else{
-      cat("\nValor da distância em que a idade é 0:\n")
-      }
-      rep <- scan(n=1)
-      abline(v=rep,col="#cccccc")
-      text(x = rep+0.03, y = yMax-0.05,"birth")
-
-      if(linguagem==2){
-      cat("\nValue of the distance where the age is 1:\n")
-      }else{
-      cat("\nValor da distância em que a idade é 1:\n")
-      }
-      rep <- scan(n=1)
-      abline(v=rep,col="#cccccc")
-      text(x = rep+0.03, y = yMax-0.05,"1")
-
-      if(linguagem==2){
-      cat("\nValue of the distance where the age is 2:\n")
-      }else{
-      cat("\nValor da distância em que a idade é 2:\n")
-      }
-      rep <- scan(n=1)
-      abline(v=rep,col="#cccccc")
-      text(x = rep+0.03, y = yMax-0.05,"2 years old")
-
-      #object remover
-      rm(limiteDistanciaMin, envir = .GlobalEnv)
-      rm(limiteDistanciaMax, envir = .GlobalEnv)
-      rm(limitePontos, envir = .GlobalEnv)
-      rm(comparar, envir = .GlobalEnv)
-      rm(selecao, envir = .GlobalEnv)
-      rm(localiza, envir = .GlobalEnv)
-      rm(localizacoes, envir = .GlobalEnv)
-      rm(medias, envir = .GlobalEnv)
-      rm(legendaTitulo, envir = .GlobalEnv)
-      rm(legendaX, envir = .GlobalEnv)
-      #end of execution
-      return()
-    }else{#opção inválida
-      #end of execution
-      return()
+      dadosBkp <<- dados
+      dados <<- resultado
+      write.table(dados, file='moving-average-CPecopesca.csv', sep=',', dec='.', row.names=FALSE)
     }
+
+    #position of each selected element
+    a <- selecao[1]
+    b <- selecao[2]
+
+    #distance column start row
+    limiteDistanciaMin <<- 1
+
+    #end row of distance column
+    limiteDistanciaMax <<- length(dados[,1])
+
+    #determining the lower limit of the y-axis
+    if(linguagem==2){
+      cat("\nPlease provide the lower limit of the y-axis:\n")
+    }else{
+      cat("\nInforme o limite inferior do eixo y:\n")
+    }
+    yMin <- scan(n=1)
+
+    #determining the upper limit of the y-axis
+    if(linguagem==2){
+      cat("\nPlease provide the upper limit of the y-axis:\n")
+    }else{
+      cat("\nInforme o limite superior do eixo y:\n")
+    }
+    yMax <- scan(n=1)
+
+    #generation of the graph that will later receive the change lines
+    par(mar = c(5, 4, 4, 4) + 0.25)
+    plot(dados[,a]~dados[,1],
+         type = "l",
+         xlab = legendaX,
+         ylab = colnames(dados[a]),
+         col = "#000000",
+         ylim = c(yMin,yMax))
+    par(new=TRUE)
+    plot(dados[,b]~dados[,1],
+         type="l",
+         axes=FALSE,
+         ann=FALSE,
+         col = "#ff0000",
+         ylim = c(yMin,yMax))
+    mtext(colnames(dados[b]),
+          side=4,
+          line=3)
+    axis(4)
+    title(main = legendaTitulo,
+          xlab = legendaX)
+    cores = c("#000000","#990000")
+    for(h in 1:2){
+
+      limitePontos <- length(localizacoes[,h])-length(which(is.na(localizacoes[,h])))
+      posicaoMin <- 1
+      #repetition by the number of points of changes
+      for(i in 1:limitePontos){
+
+        #line control variable
+        k = 1
+
+        #starting the dataframe that will add the change lines
+        limiteDistanciaMax <<- localizacoes[i,h]
+
+        #generated change line display
+        lines(c(dados[posicaoMin,1],dados[limiteDistanciaMax,1]), c(medias[i,h],medias[i,h]), col = cores[h], lwd = 3)
+
+        #object remover containing line
+        rm(linhas, envir = .GlobalEnv)
+
+        #raising the start line for the next cycle
+        posicaoMin <- limiteDistanciaMax+1
+
+      }
+    }
+
+    if(linguagem==2){
+      cat("\nProxy line 1: (dashed)\n")
+    }else{
+      cat("\nLinha do proxy 1: (traçada)\n")
+    }
+    rep <- scan(n=1)
+    abline(h=rep,lty=2)
+    #text(x = 200, y = rep+0.05,'Maximum')
+
+    if(linguagem==2){
+      cat("\nProxy line 2: (dashed)\n")
+    }else{
+      cat("\nLinha do proxy 2: (traçada)\n")
+    }
+    rep <- scan(n=1)
+    abline(h=rep,lty=2)
+    #text(x = 200, y = rep+0.05,"Minimum")
+
+    if(linguagem==2){
+      cat("\nProxy line 3: (dotted)\n")
+    }else{
+      cat("\nLinha do proxy 3: (pontilhada)\n")
+    }
+    rep <- scan(n=1)
+    abline(h=rep,lty=3)
+    #text(x = 200, y = rep+0.05,"Mean-1*SD")
+
+    #cat("\nMean-2*SD:\n")
+    #rep <- scan(n=1)
+    #abline(h=rep,lty=2)
+    #text(x = 200, y = rep+0.05,"Mean-2*SD")
+
+    if(linguagem==2){
+      cat("\nValue of the distance where the age is 0:\n")
+    }else{
+      cat("\nValor da distância em que a idade é 0:\n")
+    }
+    rep <- scan(n=1)
+    abline(v=rep,col="#cccccc")
+    text(x = rep+0.03, y = yMax-0.05,"birth")
+
+    if(linguagem==2){
+      cat("\nValue of the distance where the age is 1:\n")
+    }else{
+      cat("\nValor da distância em que a idade é 1:\n")
+    }
+    rep <- scan(n=1)
+    abline(v=rep,col="#cccccc")
+    text(x = rep+0.03, y = yMax-0.05,"1")
+
+    if(linguagem==2){
+      cat("\nValue of the distance where the age is 2:\n")
+    }else{
+      cat("\nValor da distância em que a idade é 2:\n")
+    }
+    rep <- scan(n=1)
+    abline(v=rep,col="#cccccc")
+    text(x = rep+0.03, y = yMax-0.05,"2 years old")
+
+    #object remover
+    rm(limiteDistanciaMin, envir = .GlobalEnv)
+    rm(limiteDistanciaMax, envir = .GlobalEnv)
+    rm(limitePontos, envir = .GlobalEnv)
+    rm(comparar, envir = .GlobalEnv)
+    rm(selecao, envir = .GlobalEnv)
+    rm(localizacoes, envir = .GlobalEnv)
+    rm(medias, envir = .GlobalEnv)
+    rm(legendaTitulo, envir = .GlobalEnv)
+    rm(legendaX, envir = .GlobalEnv)
+    #end of execution
+    return()
+
+  }else if(comparar==2){#three elements
+
+    if(ajuste!="N"){
+      #set by moving average
+      n <- length(dados)
+      resultado <- data.frame()
+      j <- 1
+      reduzido <- intervalo-1
+      for(i in intervalo:n){
+        a <- i-reduzido
+        resultado[1,j] <- planilha[1,i]
+        resultado[2,j] <- mean(rowMeans(planilha[2,a:i]))
+        resultado[3,j] <- mean(rowMeans(planilha[3,a:i]))
+        resultado[4,j] <- mean(rowMeans(planilha[4,a:i]))
+        j <- j+1
+      }
+      dadosBkp <<- dados
+      dados <<- resultado
+      write.table(dados, file='moving-average-CPecopesca.csv', sep=',', dec='.', row.names=FALSE)
+    }
+
+    #position of each selected element
+    a <- selecao[1]
+    b <- selecao[2]
+    c <- selecao[3]
+
+    #distance column start row
+    limiteDistanciaMin <<- 1
+
+    #end row of distance column
+    limiteDistanciaMax <<- length(dados[,1])
+
+    #determining the lower limit of the y-axis
+    if(linguagem==2){
+      cat("\nPlease provide the lower limit of the y-axis:\n")
+    }else{
+      cat("\nInforme o limite inferior do eixo y:\n")
+    }
+    yMin <- scan(n=1)
+
+    #determining the upper limit of the y-axis
+    if(linguagem==2){
+      cat("\nPlease provide the upper limit of the y-axis:\n")
+    }else{
+      cat("\nInforme o limite superior do eixo y:\n")
+    }
+    yMax <- scan(n=1)
+
+    #generation of the graph that will later receive the change lines
+    par(mar = c(5, 4, 4, 4) + 0.25)
+    plot(dados[,a]~dados[,1],
+         type = "l",
+         xlab = legendaX,
+         ylab = colnames(dados[a]),
+         col = "#000000",
+         #lty  = 1,
+         ylim = c(yMin,yMax))
+    par(new=TRUE)
+    plot(dados[,b]~dados[,1],
+         type = "l",
+         axes = FALSE,
+         ann  = FALSE,
+         col = "#ff0000",
+         #lty   = 2,
+         ylim = c(yMin,yMax))
+    par(new=TRUE)
+    plot(dados[,c]~dados[,1],
+         type = "l",
+         axes = FALSE,
+         ann  = FALSE,
+         col = "#0099ff",
+         #lty  = 3,
+         ylim = c(yMin,yMax))
+    mtext(paste(colnames(dados[b]),",",colnames(dados[c])),
+          side=4,
+          line=3)
+    axis(4)
+    title(main = legendaTitulo,
+          xlab = legendaX)
+
+    #change line colors
+    cores = c("#000000","#990000","#0000ff")
+    #cores = c(1,2,3)
+
+    for(h in 1:3){
+      limitePontos <- length(localizacoes[,h])-length(which(is.na(localizacoes[,h])))
+      posicaoMin <- 1
+      #repetition by the number of points of changes
+      for(i in 1:limitePontos){
+
+        #line control variable
+        k = 1
+
+        #starting the dataframe that will add the change lines
+        limiteDistanciaMax <<- localizacoes[i,h]
+
+        #generated change line display
+        lines(c(dados[posicaoMin,1],dados[limiteDistanciaMax,1]), c(medias[i,h],medias[i,h]), col = cores[h], lwd = 3)
+
+        #object remover containing line
+        rm(linhas, envir = .GlobalEnv)
+
+        #raising the start line for the next cycle
+        posicaoMin <- limiteDistanciaMax+1
+
+      }
+    }
+
+    if(linguagem==2){
+      cat("\nProxy line 1: (dashed)\n")
+    }else{
+      cat("\nLinha do proxy 1: (traçada)\n")
+    }
+    rep <- scan(n=1)
+    abline(h=rep,lty=2)
+    #text(x = 200, y = rep+0.05,'Maximum')
+
+    if(linguagem==2){
+      cat("\nProxy line 2: (dashed)\n")
+    }else{
+      cat("\nLinha do proxy 2: (traçada)\n")
+    }
+    rep <- scan(n=1)
+    abline(h=rep,lty=2)
+    #text(x = 200, y = rep+0.05,"Minimum")
+
+    if(linguagem==2){
+      cat("\nProxy line 3: (dotted)\n")
+    }else{
+      cat("\nLinha do proxy 3: (pontilhada)\n")
+    }
+    rep <- scan(n=1)
+    abline(h=rep,lty=3)
+    #text(x = 200, y = rep+0.05,"Mean-1*SD")
+
+    #cat("\nMean-2*SD:\n")
+    #rep <- scan(n=1)
+    #abline(h=rep,lty=2)
+    #text(x = 200, y = rep+0.05,"Mean-2*SD")
+
+    if(linguagem==2){
+      cat("\nValue of the distance where the age is 0:\n")
+    }else{
+      cat("\nValor da distância em que a idade é 0:\n")
+    }
+    rep <- scan(n=1)
+    abline(v=rep,col="#cccccc")
+    text(x = rep+0.03, y = yMax-0.05,"birth")
+
+    if(linguagem==2){
+      cat("\nValue of the distance where the age is 1:\n")
+    }else{
+      cat("\nValor da distância em que a idade é 1:\n")
+    }
+    rep <- scan(n=1)
+    abline(v=rep,col="#cccccc")
+    text(x = rep+0.03, y = yMax-0.05,"1")
+
+    if(linguagem==2){
+      cat("\nValue of the distance where the age is 2:\n")
+    }else{
+      cat("\nValor da distância em que a idade é 2:\n")
+    }
+    rep <- scan(n=1)
+    abline(v=rep,col="#cccccc")
+    text(x = rep+0.03, y = yMax-0.05,"2 years old")
+
+    #object remover
+    rm(limiteDistanciaMin, envir = .GlobalEnv)
+    rm(limiteDistanciaMax, envir = .GlobalEnv)
+    rm(limitePontos, envir = .GlobalEnv)
+    rm(comparar, envir = .GlobalEnv)
+    rm(selecao, envir = .GlobalEnv)
+    rm(localiza, envir = .GlobalEnv)
+    rm(localizacoes, envir = .GlobalEnv)
+    rm(medias, envir = .GlobalEnv)
+    rm(legendaTitulo, envir = .GlobalEnv)
+    rm(legendaX, envir = .GlobalEnv)
+    #end of execution
+    return()
+  }else{#opção inválida
+    #end of execution
+    return()
+  }
 }

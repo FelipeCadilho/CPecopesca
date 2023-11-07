@@ -20,7 +20,7 @@ CPecopesca <- function(idioma=1,
                        tamSegmMin=1,
                        un="(µm)"){
   #initial notice
-  if(idioma=2){
+  if(idioma==2){
   cat("Did you set the location of your data file as 
       \nthe working directory of the R environment before running this package? Y/N\n")
   }else{
@@ -72,7 +72,7 @@ CPecopesca <- function(idioma=1,
     }
 
     #definição dos parâmetros da função do changepoint
-    if(idioma=2){
+    if(idioma==2){
     cat("\nDo you want to configure the parameters of the changepoint function? Y/N\n")
     }else{
     cat("\nDeseja configurar os parametros da função changepoint? S/N\n")
@@ -93,7 +93,7 @@ CPecopesca <- function(idioma=1,
     }
 
     #definition of the unit of measure
-    if(idioma=2){
+    if(idioma==2){
     cat("\nWhat unit of measurement for distance?\n")
     }else{
     cat("\nQual unidade de medida da distância?\n")
@@ -101,7 +101,7 @@ CPecopesca <- function(idioma=1,
     un = paste("(",readLines(n=1),")",sep="")
 
     #chart language setting
-    if(idioma=2){
+    if(idioma==2){
     cat("\nGraph language:\n1) English\n2) Portuguese\n")
     }else{
     cat("\nQual idioma do gráfico:\n1) Inglês\n2) Português\n")
@@ -119,7 +119,7 @@ CPecopesca <- function(idioma=1,
 ## START OF DATA ENTRY
 ################################################################################
     #data file name
-    if(idioma=2){
+    if(idioma==2){
     cat("\nEnter the name of the data file with the extension. (E.g. data_name.xlsx)\n")
     }else{
     cat("\nDigite o nome do arquivo de dados com a extensão.(E.g. nome_dados.xlsx)\n")
@@ -127,7 +127,7 @@ CPecopesca <- function(idioma=1,
     nome_dados <<- readLines(n=1)
 
     #data file extension
-    if(idioma=2){
+    if(idioma==2){
     cat("\nEnter the number corresponding to the data file extension:\n1-xls or xlsx (Default)\n2-csv\n3-txt\n4-Dataframe\n")
     }else{
     cat("\nInforme o número referente a extensão do arquivo de dados:\n1-xls ou xlsx (Padrão)\n2-csv\n3-txt\n4-Dataframe\n")
@@ -135,7 +135,7 @@ CPecopesca <- function(idioma=1,
     tipo_dados = scan(n=1)
     if(tipo_dados == 1){
       dado <- "xlsx"
-      if(idioma=2){
+      if(idioma==2){
       cat("\nEnter the name of the worksheet you want to use. (By default, it is the first one)\n")
       }else{
       cat("\nInforme o nome da planilha que deseja usar. (Por padrão é a primeira)\n")
@@ -149,7 +149,7 @@ CPecopesca <- function(idioma=1,
       dado <- "dataframe"
     }else if(is.null(tipo_dados)){
       dado <- "xlsx"
-      if(idioma=2){
+      if(idioma==2){
       cat("\nEnter the name of the worksheet you want to use. (By default, it is the first one)\n")
       }else{
       cat("\nInforme o nome da planilha que deseja usar. (Por padrão é a primeira)\n")
@@ -157,7 +157,7 @@ CPecopesca <- function(idioma=1,
       planilha <<- readLines(n=1)
     }
     if(dado =="txt"||dado =="csv"){
-        if(idioma=2){
+        if(idioma==2){
         cat("\nWhat character was used to separate the columns in the file?\n")
         }else{
         cat("\nQual caracter foi utilizado para separação das colunas no arquivo?\n")
@@ -201,7 +201,7 @@ CPecopesca <- function(idioma=1,
 ################################################################################
 
     #sample identification
-    if(idioma=2){
+    if(idioma==2){
     cat("\nPlease provide the sample identification.\n")
     }else{
     cat("\nInforme a identificação da amostra.\n")
@@ -209,7 +209,7 @@ CPecopesca <- function(idioma=1,
     amostra <<- readLines(n=1)
 
     #y-axis question
-    if(idioma=2){
+    if(idioma==2){
     cat("\nDo you want to change the y-axes of each plot? Y/N\n")
     }else{
     cat("\nDeseja alterar os eixos y de cada gráfico? S/N\n")
@@ -231,7 +231,7 @@ CPecopesca <- function(idioma=1,
     resultados <<- data.frame()
     localiza <<- data.frame()
     media <<- data.frame()  
-    if(idioma=2){    
+    if(idioma==2){    
     resultados[1,1] <<- "Position of the change point"
     resultados[2,1] <<- "Value of the element at the change point"
     resultados[3,1] <<- "Means between the changes"
@@ -294,7 +294,7 @@ CPecopesca <- function(idioma=1,
 
       if(mudaEixoY==1){
           #determining the lower limit of the y-axis
-          if(idioma=2){
+          if(idioma==2){
           cat("\nPlease provide the lower limit of the y-axis for the element",nome,":\n")
           }else{
           cat("\nInforme o limite inferior do eixo y para o elemento",nome,":\n")
@@ -302,7 +302,7 @@ CPecopesca <- function(idioma=1,
           yMin <- scan(n=1)
 
           #determining the upper limit of the y-axis
-          if(idioma=2){
+          if(idioma==2){
           cat("\nPlease provide the upper limit of the y-axis for the element",nome,":\n")
           }else{
           cat("\nInforme o limite superior do eixo y para o elemento",nome,":\n")
@@ -372,7 +372,7 @@ CPecopesca <- function(idioma=1,
     rm(configuracaoParametros, envir = .GlobalEnv)
 
     #comparison between elements
-    if(idioma=2){
+    if(idioma==2){
     cat("\nDo you want to compare elements:\n0) Do not compare\n1) 2 elements\n2) 3 elements\n")
     }else{
     cat("\nDeseja comparar elementos:\n0) Não comparar\n1) 2 elementos\n2) 3 elementos\n")
@@ -383,7 +383,7 @@ CPecopesca <- function(idioma=1,
     localizacoes <<- localiza
     medias <<- media
     if(!is.null(compara) && compara!=0){
-      if(idioma=2){
+      if(idioma==2){
       cat("\nElements to be compared:\n",colnames(dfnomes),"\n")
       ascores<-c("(black color)","(red color)","(blue color)")
       }else{
@@ -392,7 +392,7 @@ CPecopesca <- function(idioma=1,
       }      
       if(compara == 1){#two elements
         for(i in 1:2){
-          if(idioma=2){
+          if(idioma==2){
           cat("\nEnter the number of element",i,"you want:",ascores[i],"\n")
           }else{
           cat("\nDigite o número do elemento",i,"desejado:",ascores[i],"\n")
@@ -404,7 +404,7 @@ CPecopesca <- function(idioma=1,
         }
       }else if(compara == 2){#three elements
         for(i in 1:3){
-          if(idioma=2){
+          if(idioma==2){
           cat("\nEnter the number of element",i,"you want:",ascores[i],"\n")
           }else{
           cat("\nDigite o número do elemento",i,"desejado:",ascores[i],"\n")
@@ -424,13 +424,13 @@ CPecopesca <- function(idioma=1,
     rm(tt, envir = .GlobalEnv)
 
     write.table(resultados, file='resultados-PCecopesca.csv', sep=',', dec='.', row.names=FALSE)
-    if(idioma=2){
+    if(idioma==2){
     return("Finished process.")
     }else{
     return("Processo finalizado.")
     }
   }else{
-    if(idioma=2){
+    if(idioma==2){
     return("Set up your working directory before running the package.")
     }else{
     return("Configure sua área de trabalho antes de executar o pacote.")

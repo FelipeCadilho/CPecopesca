@@ -27,7 +27,7 @@ comparacao <- function(linguagem, comparar, selecao, localizacoes, medias, dados
       limiteDistanciaMax <<- length(dados[,1])
 
       #determining the lower limit of the y-axis
-      if(linguagem=2){
+      if(linguagem==2){
       cat("\nPlease provide the lower limit of the y-axis:\n")
       }else{
       cat("\nInforme o limite inferior do eixo y:\n")
@@ -35,7 +35,7 @@ comparacao <- function(linguagem, comparar, selecao, localizacoes, medias, dados
       yMin <- scan(n=1)
 
       #determining the upper limit of the y-axis
-      if(linguagem=2){
+      if(linguagem==2){
       cat("\nPlease provide the upper limit of the y-axis:\n")
       }else{
       cat("\nInforme o limite superior do eixo y:\n")
@@ -89,7 +89,7 @@ comparacao <- function(linguagem, comparar, selecao, localizacoes, medias, dados
         }
       }
 
-      if(linguagem=2){
+      if(linguagem==2){
       cat("\nProxy line 1: (dashed)\n")
       }else{
       cat("\nLinha do proxy 1: (traçada)\n")
@@ -98,7 +98,7 @@ comparacao <- function(linguagem, comparar, selecao, localizacoes, medias, dados
       abline(h=rep,lty=2)
       #text(x = 200, y = rep+0.05,'Maximum')
 
-      if(linguagem=2){
+      if(linguagem==2){
       cat("\nProxy line 2: (dashed)\n")
       }else{
       cat("\nLinha do proxy 2: (traçada)\n")
@@ -107,7 +107,7 @@ comparacao <- function(linguagem, comparar, selecao, localizacoes, medias, dados
       abline(h=rep,lty=2)
       #text(x = 200, y = rep+0.05,"Minimum")
 
-      if(linguagem=2){
+      if(linguagem==2){
       cat("\nProxy line 3: (dotted)\n")
       }else{
       cat("\nLinha do proxy 3: (pontilhada)\n")
@@ -121,7 +121,7 @@ comparacao <- function(linguagem, comparar, selecao, localizacoes, medias, dados
       #abline(h=rep,lty=2)
       #text(x = 200, y = rep+0.05,"Mean-2*SD")
 
-      if(linguagem=2){
+      if(linguagem==2){
       cat("\nValue of the distance where the age is 0:\n")
       }else{
       cat("\nValor da distância em que a idade é 0:\n")
@@ -130,7 +130,7 @@ comparacao <- function(linguagem, comparar, selecao, localizacoes, medias, dados
       abline(v=rep,col="#cccccc")
       text(x = rep+0.03, y = yMax-0.05,"birth")
 
-      if(linguagem=2){
+      if(linguagem==2){
       cat("\nValue of the distance where the age is 1:\n")
       }else{
       cat("\nValor da distância em que a idade é 1:\n")
@@ -139,7 +139,7 @@ comparacao <- function(linguagem, comparar, selecao, localizacoes, medias, dados
       abline(v=rep,col="#cccccc")
       text(x = rep+0.03, y = yMax-0.05,"1")
 
-      if(linguagem=2){
+      if(linguagem==2){
       cat("\nValue of the distance where the age is 2:\n")
       }else{
       cat("\nValor da distância em que a idade é 2:\n")
@@ -175,7 +175,7 @@ comparacao <- function(linguagem, comparar, selecao, localizacoes, medias, dados
         limiteDistanciaMax <<- length(dados[,1])
 
         #determining the lower limit of the y-axis
-        if(linguagem=2){
+        if(linguagem==2){
         cat("\nPlease provide the lower limit of the y-axis:\n")
         }else{
         cat("\nInforme o limite inferior do eixo y:\n")
@@ -183,7 +183,7 @@ comparacao <- function(linguagem, comparar, selecao, localizacoes, medias, dados
         yMin <- scan(n=1)
 
         #determining the upper limit of the y-axis
-        if(linguagem=2){
+        if(linguagem==2){
         cat("\nPlease provide the upper limit of the y-axis:\n")
         }else{
         cat("\nInforme o limite superior do eixo y:\n")
@@ -250,7 +250,7 @@ comparacao <- function(linguagem, comparar, selecao, localizacoes, medias, dados
           }
       }
 
-      if(linguagem=2){
+      if(linguagem==2){
       cat("\nProxy line 1: (dashed)\n")
       }else{
       cat("\nLinha do proxy 1: (traçada)\n")
@@ -259,7 +259,7 @@ comparacao <- function(linguagem, comparar, selecao, localizacoes, medias, dados
       abline(h=rep,lty=2)
       #text(x = 200, y = rep+0.05,'Maximum')
 
-      if(linguagem=2){
+      if(linguagem==2){
       cat("\nProxy line 2: (dashed)\n")
       }else{
       cat("\nLinha do proxy 2: (traçada)\n")
@@ -268,7 +268,7 @@ comparacao <- function(linguagem, comparar, selecao, localizacoes, medias, dados
       abline(h=rep,lty=2)
       #text(x = 200, y = rep+0.05,"Minimum")
 
-      if(linguagem=2){
+      if(linguagem==2){
       cat("\nProxy line 3: (dotted)\n")
       }else{
       cat("\nLinha do proxy 3: (pontilhada)\n")
@@ -282,7 +282,7 @@ comparacao <- function(linguagem, comparar, selecao, localizacoes, medias, dados
       #abline(h=rep,lty=2)
       #text(x = 200, y = rep+0.05,"Mean-2*SD")
 
-      if(linguagem=2){
+      if(linguagem==2){
       cat("\nValue of the distance where the age is 0:\n")
       }else{
       cat("\nValor da distância em que a idade é 0:\n")
@@ -291,7 +291,7 @@ comparacao <- function(linguagem, comparar, selecao, localizacoes, medias, dados
       abline(v=rep,col="#cccccc")
       text(x = rep+0.03, y = yMax-0.05,"birth")
 
-      if(linguagem=2){
+      if(linguagem==2){
       cat("\nValue of the distance where the age is 1:\n")
       }else{
       cat("\nValor da distância em que a idade é 1:\n")
@@ -300,7 +300,7 @@ comparacao <- function(linguagem, comparar, selecao, localizacoes, medias, dados
       abline(v=rep,col="#cccccc")
       text(x = rep+0.03, y = yMax-0.05,"1")
 
-      if(linguagem=2){
+      if(linguagem==2){
       cat("\nValue of the distance where the age is 2:\n")
       }else{
       cat("\nValor da distância em que a idade é 2:\n")

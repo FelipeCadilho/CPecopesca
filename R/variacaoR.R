@@ -32,7 +32,7 @@ CPecopesca <- function(idioma=1,
   if(configuracao == "S"||configuracao == "Y"){
 
     #packages needed for this package to work
-    if(idioma=2){
+    if(idioma==2){
     cat("\nIs this the first execution after installing this package? Y/N\n")
     }else{
     cat("\nEssa é a primeira execução após instalação deste pacote? S/N\n")
@@ -186,7 +186,7 @@ CPecopesca <- function(idioma=1,
       }
     }else if(dado == "txt"){
       if(is.null(separador)){
-          if(idioma=2){
+          if(idioma==2){
           cat("\nPlease provide the file separator for txt files.\n")
           }else{
           cat("\nNecessário informar separador de arquivos em txt.\n")

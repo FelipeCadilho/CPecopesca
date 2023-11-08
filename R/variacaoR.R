@@ -29,7 +29,7 @@ CPecopesca <- function(idioma=1,
   }
   configuracao <<- toupper(readLines(n=1))
 
-  if(configuracao == "S"||configuracao == "Y"){
+  if(configuracao !="N"){
 
     #packages needed for this package to work
     if(idioma==2){
@@ -90,8 +90,6 @@ CPecopesca <- function(idioma=1,
         teste.stat <- readLines(n=1)
       cat("\nTamanho do segmento mínimo (número de observações entre as mudanças):\n")
         tamSegmMin <- scan(n=1)
-    }
-
     #definition of the unit of measure
     if(idioma==2){
       cat("\nWhat unit of measurement for distance?\n")
@@ -99,7 +97,7 @@ CPecopesca <- function(idioma=1,
       cat("\nQual unidade de medida da distância?\n")
     }
     un = paste("(",readLines(n=1),")",sep="")
-
+    }
     #chart language setting
     if(idioma==2){
       cat("\nGraph language:\n1) English\n2) Portuguese\n")
@@ -219,6 +217,48 @@ CPecopesca <- function(idioma=1,
       mudaEixoY <- 1
     }else{
       mudaEixoY <- 0
+    }
+
+    if(idioma==2){
+      cat("\nDo you want to ajust your data by moving average? Y/N\n")
+    }else{
+      cat("\nDeseja ajustar seus dados aplicando média móvel? S/N\n")
+    }
+    ajuste <- toupper(readLines(n=1))
+    if(ajuste!="N"){
+      if(idioma==2){
+        cat("\nWhat interval do you will set?\n")
+      }else{
+        cat("\nQual é o intervalo desejado?\n")
+      }
+      intervalo <<- scan(n=1)
+
+      ce <<- length(dados)
+      ene <<- length(dados[,1])
+      reduzido <<- intervalo-1
+      resultado <<- dados %>% slice(-c(1:reduzido))
+      escada <<- 1
+      while(escada <= ce){
+        #start-while
+        jarro <<- 1
+        for(i in intervalo:ene){
+          #start-for
+          aba <<- i-reduzido
+          if(escada==1){
+          #resultado[escada,jarro] <- dados[1,i]
+          }else{
+          resultado[jarro, escada] <<- mean(dados[aba:i,escada])
+          }
+          jarro <<- jarro +1
+          #end-for
+        }
+        escada <<- escada +1
+        #end=while
+      }
+      dadosBkp <<- dados
+      setNames(dadosBkp, names(resultado))
+      dados <<- resultado
+      write.table(dados, file='moving-average-CPecopesca.csv', sep=',', dec='.', row.names=FALSE)
     }
 
     #amount of elements
@@ -402,21 +442,6 @@ CPecopesca <- function(idioma=1,
           medias[,i] <<- media[,elementosSelecionados[i]]
           elementosSelecionados[i] <- elementosSelecionados[i]+1
         }
-
-        if(idioma==2){
-          cat("\nDo you want to ajust your data by moving average? Y/N\n")
-        }else{
-          cat("\nDeseja ajustar seus dados aplicando média móvel? S/N\n")
-        }
-        ajuste <- toupper(readLines(n=1))
-        if(ajuste!="N"){
-          if(idioma==2){
-            cat("\nWhat interval do you will set?\n")
-          }else{
-            cat("\nQual é o intervalo desejado?\n")
-          }
-          intervalo <- scan(n=1)
-        }
       }else if(compara == 2){#three elements
         for(i in 1:3){
           if(idioma==2){
@@ -429,22 +454,9 @@ CPecopesca <- function(idioma=1,
           medias[,i] <<- media[,elementosSelecionados[i]]
           elementosSelecionados[i] <- elementosSelecionados[i]+1
         }
-        if(idioma==2){
-          cat("\nDo you want to ajust your data by moving average? Y/N\n")
-        }else{
-          cat("\nDeseja ajustar seus dados aplicando média móvel? S/N\n")
-        }
-        ajuste <- toupper(readLines(n=1))
-        if(ajuste!="N"){
-          if(idioma==2){
-            cat("\nWhat interval do you will set?\n")
-          }else{
-            cat("\nQual é o intervalo desejado?\n")
-          }
-          intervalo <- scan(n=1)
-        }
 
-      comparacao(idioma, compara, elementosSelecionados, localizacoes, medias, dados, amostra, legendaX, ajuste, intervalo)
+
+      comparacao(idioma, compara, elementosSelecionados, localizacoes, medias, dados, amostra, legendaX)
     }
 
     #object remover

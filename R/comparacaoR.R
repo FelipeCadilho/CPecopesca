@@ -8,33 +8,14 @@
 #' @param dados Database with the original measurements.
 #' @param legendaTitulo Plot title.
 #' @param legendaX X-axis label.
-#' @param ajuste Set data by moving average.
-#' @param intervalo Interval of moving average. (Optional)
 #'
 #' @return
 #' @export
 #'
 #' @examples
-comparacao <- function(linguagem, comparar, selecao, localizacoes, medias, dados, legendaTitulo, legendaX, ajuste, intervalo=NULL){
+comparacao <- function(linguagem, comparar, selecao, localizacoes, medias, dados, legendaTitulo, legendaX){
 
   if(comparar==1){#two elements
-    if(ajuste!="N"){
-      #set by moving average
-      n <- length(dados)
-      resultado <- data.frame()
-      j <- 1
-      reduzido <- intervalo-1
-      for(i in intervalo:n){
-          a <- i-reduzido
-          resultado[1,j] <- planilha[1,i]
-          resultado[2,j] <- mean(rowMeans(planilha[2,a:i]))
-          resultado[3,j] <- mean(rowMeans(planilha[3,a:i]))
-          j <- j+1
-      }
-      dadosBkp <<- dados
-      dados <<- resultado
-      write.table(dados, file='moving-average-CPecopesca.csv', sep=',', dec='.', row.names=FALSE)
-    }
 
     #position of each selected element
     a <- selecao[1]
@@ -182,25 +163,6 @@ comparacao <- function(linguagem, comparar, selecao, localizacoes, medias, dados
     return()
 
   }else if(comparar==2){#three elements
-
-    if(ajuste!="N"){
-      #set by moving average
-      n <- length(dados)
-      resultado <- data.frame()
-      j <- 1
-      reduzido <- intervalo-1
-      for(i in intervalo:n){
-        a <- i-reduzido
-        resultado[1,j] <- planilha[1,i]
-        resultado[2,j] <- mean(rowMeans(planilha[2,a:i]))
-        resultado[3,j] <- mean(rowMeans(planilha[3,a:i]))
-        resultado[4,j] <- mean(rowMeans(planilha[4,a:i]))
-        j <- j+1
-      }
-      dadosBkp <<- dados
-      dados <<- resultado
-      write.table(dados, file='moving-average-CPecopesca.csv', sep=',', dec='.', row.names=FALSE)
-    }
 
     #position of each selected element
     a <- selecao[1]

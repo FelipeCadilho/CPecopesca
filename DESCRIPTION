@@ -6,8 +6,7 @@ Author: c(person("Felipe Douglas Mendonça", "Cadilho", email = "sr.cadilho@gmai
              person("Marcus Rodrigues", "da Costa", email = "marcusrc@id.uff.br", role = "aut"),
              person("Paulo Roberto Camponez", "de Almeida", email = "prcalmeida@id.uff.br", role = "aut"))
 Maintainer: Felipe Douglas Mendonça Cadilho <sr.cadilho@gmail.com>
-Description: This package aims to identify the change point in the concentrations of detected elements in calcified structures, such as otoliths, 
-where the distance between the core and the edge is essential on the x-axis to relate the year and the concentration change.
+Description: This package aims to identify the change point in the concentrations of detected elements in calcified structures, such as otoliths, where the distance between the core and the edge is essential on the x-axis to relate the year and the concentration change.
 License: GPL (>= 3)
 Encoding: UTF-8
 LazyData: true

@@ -21,11 +21,9 @@ CPecopesca <- function(idioma=1,
                        un="(µm)"){
   #initial notice
   if(idioma==2){
-    cat("Did you set the location of your data file as
-      \nthe working directory of the R environment before running this package? Y/N\n")
+    cat("Did you set the location of your data file as\nthe working directory of the R environment before running this package? Y/N\n")
   }else{
-    cat("\nConfigurou o local do seu arquivo de dados como
-      \ndiretório de trabalho do ambiente R antes de executar este pacote? S/N\n")
+    cat("\nConfigurou o local do seu arquivo de dados como\ndiretório de trabalho do ambiente R antes de executar este pacote? S/N\n")
   }
   configuracao <<- toupper(readLines(n=1))
 

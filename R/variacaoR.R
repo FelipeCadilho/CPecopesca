@@ -453,8 +453,9 @@ CPecopesca <- function(idioma=1,
           elementosSelecionados[i] <- elementosSelecionados[i]+1
         }
 
-
+      cat("Cheguei aqui antes de comparacao")
       comparacao(idioma, compara, elementosSelecionados, localizacoes, medias, dados, amostra, legendaX)
+      cat("Cheguei aqui depois de comparacao")
     }
 
     #object remover

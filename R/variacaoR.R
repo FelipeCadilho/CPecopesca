@@ -104,8 +104,8 @@ CPecopesca <- function(idioma=1,
     }else{
       cat("\nQual idioma do gráfico:\n1) Inglês\n2) Português\n")
     }
-    idioma = scan(n=1)
-    if(isTRUE(idioma) && idioma==2){
+    idiomaGraf = scan(n=1)
+    if(isTRUE(idiomaGraf) && idiomaGraf==2){
       #legendaTitulo <- "Amostra:"
       legendaX <- paste("Distância do núcleo à borda",un)
     }else{

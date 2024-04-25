@@ -14,9 +14,9 @@
 #'
 #' @examples
 comparacao <- function(linguagem, comparar, selecao, localizacoes, medias, dados, legendaTitulo, legendaX){
-
+cat("Parei aqui antes do if em comparacao")
   if(comparar==1){#two elements
-
+cat("Parei aqui dentro do if em comparacao")
     #position of each selected element
     a <- selecao[1]
     b <- selecao[2]

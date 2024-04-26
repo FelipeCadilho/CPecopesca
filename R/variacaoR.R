@@ -453,7 +453,7 @@ CPecopesca <- function(idioma=1,
           elementosSelecionados[i] <- elementosSelecionados[i]+1
         }     
       }#three elements
-        comparacao(idioma, compara, elementosSelecionados, localizacoes, medias, dados, amostra, legendaX){
+        comparacao(idioma, compara, elementosSelecionados, localizacoes, medias, dados, amostra, legendaX)
     }#no compare
 
     #object remover

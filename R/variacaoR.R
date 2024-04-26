@@ -451,12 +451,10 @@ CPecopesca <- function(idioma=1,
           localizacoes[,i] <<- localiza[,elementosSelecionados[i]]
           medias[,i] <<- media[,elementosSelecionados[i]]
           elementosSelecionados[i] <- elementosSelecionados[i]+1
-        }
-
-      cat("Cheguei aqui antes de comparacao")
-      comparacao(idioma, compara, elementosSelecionados, localizacoes, medias, dados, amostra, legendaX)
-      cat("Cheguei aqui depois de comparacao")
-    }
+        }     
+      }#three elements
+        comparacao(idioma, compara, elementosSelecionados, localizacoes, medias, dados, amostra, legendaX){
+    }#no compare
 
     #object remover
     rm(dfnomes, envir = .GlobalEnv)

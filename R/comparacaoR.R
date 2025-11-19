@@ -27,7 +27,7 @@ cat("Parei aqui dentro do if em comparacao")
     #end row of distance column
     limiteDistanciaMax <<- length(dados[,1])
 
-    #determining the lower limit of the y-axis
+    #Y=1 determining the lower limit of the y-axis
     if(linguagem==2){
       cat("\nPlease provide the lower limit of the y-axis:\n")
     }else{
@@ -43,6 +43,34 @@ cat("Parei aqui dentro do if em comparacao")
     }
     yMax <- scan(n=1)
 
+    #determining whether to assign limits to the second y-axis
+    if(linguagem==2){
+      cat("\nDo you want to specify the minimum and maximum values ​​for the second y-axis? Y/N\n")
+    }else{
+      cat("\nDeseja informar os valores mínimo e máximo para o segundo eixo y? S/N\n")
+    }
+    yaxis2 <- toupper(readLines(n=1))
+
+    if(yaxis2 == N || is.null(yaxis2) || yaxis2 == ""){
+      yMin2 = yMin
+      yMax2 = yMax
+    }else if(yaxis2 == "Y" || yaxis2 == "S"){
+      #Y=2 determining the lower limit of the y-axis
+      if(linguagem==2){
+        cat("\nPlease provide the lower limit of the y-axis:\n")
+      }else{
+        cat("\nInforme o limite inferior do eixo y:\n")
+      }
+      yMin2 <- scan(n=1)
+  
+      #determining the upper limit of the y-axis
+      if(linguagem==2){
+        cat("\nPlease provide the upper limit of the y-axis:\n")
+      }else{
+        cat("\nInforme o limite superior do eixo y:\n")
+      }
+      yMax2 <- scan(n=1)
+    }
     #generation of the graph that will later receive the change lines
     par(mar = c(5, 4, 4, 4) + 0.25)
     plot(dados[,a]~dados[,1],
@@ -57,7 +85,7 @@ cat("Parei aqui dentro do if em comparacao")
          axes=FALSE,
          ann=FALSE,
          col = "#ff0000",
-         ylim = c(yMin,yMax))
+         ylim = c(yMin2,yMax2))
     mtext(colnames(dados[b]),
           side=4,
           line=3)
@@ -328,3 +356,4 @@ cat("Parei aqui dentro do if em comparacao")
     return()
   }
 }
+

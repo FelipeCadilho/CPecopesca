@@ -14,9 +14,7 @@
 #'
 #' @examples
 comparacao <- function(linguagem, comparar, selecao, localizacoes, medias, dados, legendaTitulo, legendaX){
-cat("Parei aqui antes do if em comparacao")
   if(comparar==1){#two elements
-cat("Parei aqui dentro do if em comparacao")
     #position of each selected element
     a <- selecao[1]
     b <- selecao[2]
@@ -218,7 +216,42 @@ cat("Parei aqui dentro do if em comparacao")
       cat("\nInforme o limite superior do eixo y:\n")
     }
     yMax <- scan(n=1)
+#determining the upper limit of the y-axis
+    if(linguagem==2){
+      cat("\nPlease provide the upper limit of the y-axis:\n")
+    }else{
+      cat("\nInforme o limite superior do eixo y:\n")
+    }
+    yMax <- scan(n=1)
 
+    #determining whether to assign limits to the second y-axis
+    if(linguagem==2){
+      cat("\nDo you want to specify the minimum and maximum values ​​for the second y-axis? Y/N\n")
+    }else{
+      cat("\nDeseja informar os valores mínimo e máximo para o segundo eixo y? S/N\n")
+    }
+    yaxis2 <- toupper(readLines(n=1))
+
+    if(yaxis2 == N || is.null(yaxis2) || yaxis2 == ""){
+      yMin2 = yMin
+      yMax2 = yMax
+    }else if(yaxis2 == "Y" || yaxis2 == "S"){
+      #Y=2 determining the lower limit of the y-axis
+      if(linguagem==2){
+        cat("\nPlease provide the lower limit of the y-axis:\n")
+      }else{
+        cat("\nInforme o limite inferior do eixo y:\n")
+      }
+      yMin2 <- scan(n=1)
+  
+      #determining the upper limit of the y-axis
+      if(linguagem==2){
+        cat("\nPlease provide the upper limit of the y-axis:\n")
+      }else{
+        cat("\nInforme o limite superior do eixo y:\n")
+      }
+      yMax2 <- scan(n=1)
+    }
     #generation of the graph that will later receive the change lines
     par(mar = c(5, 4, 4, 4) + 0.25)
     plot(dados[,a]~dados[,1],
@@ -235,7 +268,7 @@ cat("Parei aqui dentro do if em comparacao")
          ann  = FALSE,
          col = "#ff0000",
          #lty   = 2,
-         ylim = c(yMin,yMax))
+         ylim = c(yMin2,yMax2))
     par(new=TRUE)
     plot(dados[,c]~dados[,1],
          type = "l",
@@ -243,7 +276,7 @@ cat("Parei aqui dentro do if em comparacao")
          ann  = FALSE,
          col = "#0099ff",
          #lty  = 3,
-         ylim = c(yMin,yMax))
+         ylim = c(yMin2,yMax2))
     mtext(paste(colnames(dados[b]),",",colnames(dados[c])),
           side=4,
           line=3)
@@ -356,4 +389,5 @@ cat("Parei aqui dentro do if em comparacao")
     return()
   }
 }
+
 

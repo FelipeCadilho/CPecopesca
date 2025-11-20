@@ -49,7 +49,7 @@ comparacao <- function(linguagem, comparar, selecao, localizacoes, medias, dados
     }
     yaxis2 <- toupper(readLines(n=1))
 
-    if(yaxis2 == N || is.null(yaxis2) || yaxis2 == ""){
+    if(yaxis2 == "N" || is.null(yaxis2) || yaxis2 == ""){
       yMin2 = yMin
       yMax2 = yMax
     }else if(yaxis2 == "Y" || yaxis2 == "S"){
@@ -232,7 +232,7 @@ comparacao <- function(linguagem, comparar, selecao, localizacoes, medias, dados
     }
     yaxis2 <- toupper(readLines(n=1))
 
-    if(yaxis2 == N || is.null(yaxis2) || yaxis2 == ""){
+    if(yaxis2 == "N" || is.null(yaxis2) || yaxis2 == ""){
       yMin2 = yMin
       yMax2 = yMax
     }else if(yaxis2 == "Y" || yaxis2 == "S"){
@@ -389,5 +389,6 @@ comparacao <- function(linguagem, comparar, selecao, localizacoes, medias, dados
     return()
   }
 }
+
 
 

@@ -216,13 +216,6 @@ comparacao <- function(linguagem, comparar, selecao, localizacoes, medias, dados
       cat("\nInforme o limite superior do eixo y:\n")
     }
     yMax <- scan(n=1)
-#determining the upper limit of the y-axis
-    if(linguagem==2){
-      cat("\nPlease provide the upper limit of the y-axis:\n")
-    }else{
-      cat("\nInforme o limite superior do eixo y:\n")
-    }
-    yMax <- scan(n=1)
 
     #determining whether to assign limits to the second y-axis
     if(linguagem==2){
@@ -389,6 +382,7 @@ comparacao <- function(linguagem, comparar, selecao, localizacoes, medias, dados
     return()
   }
 }
+
 
 
 

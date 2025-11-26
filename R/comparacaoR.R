@@ -254,7 +254,21 @@ comparacao <- function(linguagem, comparar, selecao, localizacoes, medias, dados
          col = "#000000",
          #lty  = 1,
          ylim = c(yMin,yMax))
-    par(new=TRUE)
+   
+    mtext(paste(colnames(dados[b]),",",colnames(dados[c])),
+          side=4,
+          line=3)
+    axis(4)
+    title(main = legendaTitulo,
+          xlab = legendaX)
+
+    #change line colors
+    cores = c("#000000","#990000","#0000ff")
+    #cores = c(1,2,3)
+
+  for(h in 1:3){
+    if(h>1){
+       par(new=TRUE)
     plot(dados[,b]~dados[,1],
          type = "l",
          axes = FALSE,
@@ -270,52 +284,29 @@ comparacao <- function(linguagem, comparar, selecao, localizacoes, medias, dados
          col = "#0099ff",
          #lty  = 3,
          ylim = c(yMin2,yMax2))
-    mtext(paste(colnames(dados[b]),",",colnames(dados[c])),
-          side=4,
-          line=3)
-    axis(4)
-    title(main = legendaTitulo,
-          xlab = legendaX)
-
-    #change line colors
-    cores = c("#000000","#990000","#0000ff")
-    #cores = c(1,2,3)
-
-    for(h in 1:3){
-
-    limitePontos <- length(localizacoes[,h]) - length(which(is.na(localizacoes[,h])))
-    posicaoMin <- 1
-
-    for(i in 1:limitePontos){
-
-        limiteDistanciaMax <- localizacoes[i,h]
-
-        # --- H = 1 → eixo Y da esquerda ---
-        if(h == 1){
-            # usa o sistema atual (já é o da esquerda)
-            lines(c(dados[posicaoMin,1], dados[limiteDistanciaMax,1]),
-                  c(medias[i,h], medias[i,h]),
-                  col = cores[h], lwd = 3)
-        }
-
-        # --- H = 2 e H = 3 → eixo Y da direita ---
-        if(h %in% c(2,3)){
-            # reativa o sistema do eixo da direita
-            par(new = TRUE)
-            plot(NA, NA,
-                 xlim = range(dados[,1]),
-                 ylim = c(yMin2, yMax2],
-                 axes = FALSE, xlab = "", ylab = "")
-
-            lines(c(dados[posicaoMin,1], dados[limiteDistanciaMax,1]),
-                  c(medias[i,h],       
-                    medias[i,h]),
-                  col = cores[h], lwd = 3)
-        }
-
-        posicaoMin <- limiteDistanciaMax + 1
-      }
     }
+  limitePontos <- length(localizacoes[,h])-length(which(is.na(localizacoes[,h])))
+  posicaoMin <- 1
+  #repetition by the number of points of changes
+  for(i in 1:limitePontos){
+    
+    #line control variable
+    k = 1
+    
+    #starting the dataframe that will add the change lines
+    limiteDistanciaMax <<- localizacoes[i,h]
+    
+    #generated change line display
+    lines(c(dados[posicaoMin,1],dados[limiteDistanciaMax,1]), c(medias[i,h],medias[i,h]), col = cores[h], lwd = 3)
+    
+    #object remover containing line
+    rm(linhas, envir = .GlobalEnv)
+    
+    #raising the start line for the next cycle
+    posicaoMin <- limiteDistanciaMax+1
+    
+  }
+}
     
     if(linguagem==2){
       cat("\nProxy line 1: (dashed)\n")

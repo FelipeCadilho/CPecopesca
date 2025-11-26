@@ -286,6 +286,30 @@ comparacao <- function(linguagem, comparar, selecao, localizacoes, medias, dados
          col = "#ff0000")#,
          #lty   = 2,
          #ylim = c(yMin2,yMax2))
+    
+      for(h in 2:2){
+    limitePontos <- length(localizacoes[,h])-length(which(is.na(localizacoes[,h])))
+    posicaoMin <- 1
+    #repetition by the number of points of changes
+    for(i in 1:limitePontos){
+    
+      #line control variable
+      k = 1
+    
+      #starting the dataframe that will add the change lines
+      limiteDistanciaMax <<- localizacoes[i,h]
+    
+      #generated change line display
+      lines(c(dados[posicaoMin,1],dados[limiteDistanciaMax,1]), c(medias[i,h],medias[i,h]), col = cores[h], lwd = 3)
+    
+      #object remover containing line
+      rm(linhas, envir = .GlobalEnv)
+    
+      #raising the start line for the next cycle
+      posicaoMin <- limiteDistanciaMax+1
+    
+    }
+  }
     par(new=TRUE)
     plot(dados[,c]~dados[,1],
          type = "l",
@@ -305,7 +329,7 @@ comparacao <- function(linguagem, comparar, selecao, localizacoes, medias, dados
     #cores = c("#000000","#990000","#0000ff")
     #cores = c(1,2,3)
 
-  for(h in 2:3){
+  for(h in 3:3){
     limitePontos <- length(localizacoes[,h])-length(which(is.na(localizacoes[,h])))
     posicaoMin <- 1
     #repetition by the number of points of changes
@@ -406,6 +430,7 @@ comparacao <- function(linguagem, comparar, selecao, localizacoes, medias, dados
     return()
   }
 }
+
 
 
 

@@ -246,113 +246,221 @@ comparacao <- function(linguagem, comparar, selecao, localizacoes, medias, dados
     #  yMax2 <- scan(n=1)
     #}
     #generation of the graph that will later receive the change lines
-    par(mar = c(5, 4, 4, 4) + 0.25)
-    plot(dados[,a]~dados[,1],
-         type = "l",
-         xlab = legendaX,
-         ylab = colnames(dados[a]),
-         col = "#000000")#,
+  #  par(mar = c(5, 4, 4, 4) + 0.25)
+  #  plot(dados[,a]~dados[,1],
+  #       type = "l",
+  #       xlab = legendaX,
+  #       ylab = colnames(dados[a]),
+  #       col = "#000000")#,
          #lty  = 1,
          #ylim = c(yMin,yMax))
-     cores = c("#000000","#990000","#0000ff")
-     for(h in 1:1){
-    limitePontos <- length(localizacoes[,h])-length(which(is.na(localizacoes[,h])))
-    posicaoMin <- 1
+  #   cores = c("#000000","#990000","#0000ff")
+  #   for(h in 1:1){
+  #  limitePontos <- length(localizacoes[,h])-length(which(is.na(localizacoes[,h])))
+  #  posicaoMin <- 1
     #repetition by the number of points of changes
-    for(i in 1:limitePontos){
+  #  for(i in 1:limitePontos){
     
       #line control variable
-      k = 1
+  #    k = 1
     
       #starting the dataframe that will add the change lines
-      limiteDistanciaMax <<- localizacoes[i,h]
+  #    limiteDistanciaMax <<- localizacoes[i,h]
     
       #generated change line display
-      lines(c(dados[posicaoMin,1],dados[limiteDistanciaMax,1]), c(medias[i,h],medias[i,h]), col = cores[h], lwd = 3)
+  #    lines(c(dados[posicaoMin,1],dados[limiteDistanciaMax,1]), c(medias[i,h],medias[i,h]), col = cores[h], lwd = 3)
     
       #object remover containing line
-      rm(linhas, envir = .GlobalEnv)
+  #    rm(linhas, envir = .GlobalEnv)
     
       #raising the start line for the next cycle
-      posicaoMin <- limiteDistanciaMax+1
+  #    posicaoMin <- limiteDistanciaMax+1
     
-    }
-  }
-   par(new=TRUE)
-    plot(dados[,b]~dados[,1],
-         type = "l",
-         axes = FALSE,
-         ann  = FALSE,
-         col = "#ff0000")#,
+  #  }
+  #}
+  # par(new=TRUE)
+  #  plot(dados[,b]~dados[,1],
+  #       type = "l",
+  #       axes = FALSE,
+  #       ann  = FALSE,
+  #       col = "#ff0000")#,
          #lty   = 2,
          #ylim = c(yMin2,yMax2))
     
-      for(h in 2:2){
-    limitePontos <- length(localizacoes[,h])-length(which(is.na(localizacoes[,h])))
-    posicaoMin <- 1
+  #    for(h in 2:2){
+  #  limitePontos <- length(localizacoes[,h])-length(which(is.na(localizacoes[,h])))
+  #  posicaoMin <- 1
     #repetition by the number of points of changes
-    for(i in 1:limitePontos){
+  #  for(i in 1:limitePontos){
     
       #line control variable
-      k = 1
+  #    k = 1
     
       #starting the dataframe that will add the change lines
-      limiteDistanciaMax <<- localizacoes[i,h]
+  #    limiteDistanciaMax <<- localizacoes[i,h]
     
       #generated change line display
-      lines(c(dados[posicaoMin,1],dados[limiteDistanciaMax,1]), c(medias[i,h],medias[i,h]), col = cores[h], lwd = 3)
+  #    lines(c(dados[posicaoMin,1],dados[limiteDistanciaMax,1]), c(medias[i,h],medias[i,h]), col = cores[h], lwd = 3)
     
       #object remover containing line
-      rm(linhas, envir = .GlobalEnv)
+  #    rm(linhas, envir = .GlobalEnv)
     
       #raising the start line for the next cycle
-      posicaoMin <- limiteDistanciaMax+1
+ #     posicaoMin <- limiteDistanciaMax+1
     
-    }
-  }
-    par(new=TRUE)
-    plot(dados[,c]~dados[,1],
-         type = "l",
-         axes = FALSE,
-         ann  = FALSE,
-         col = "#0099ff")#,
+ #   }
+ # }
+ #   par(new=TRUE)
+ #   plot(dados[,c]~dados[,1],
+ #        type = "l",
+ #        axes = FALSE,
+ #        ann  = FALSE,
+ #        col = "#0099ff")#,
          #lty  = 3),
          #ylim = c(yMin2,yMax2))
-    mtext(paste(colnames(dados[b]),",",colnames(dados[c])),
-          side=4,
-          line=3)
-    axis(4)
-    title(main = legendaTitulo,
-          xlab = legendaX)
+ #   mtext(paste(colnames(dados[b]),",",colnames(dados[c])),
+ #         side=4,
+ #         line=3)
+ #   axis(4)
+ #   title(main = legendaTitulo,
+ #         xlab = legendaX)
 
     #change line colors
     #cores = c("#000000","#990000","#0000ff")
     #cores = c(1,2,3)
 
-  for(h in 3:3){
-    limitePontos <- length(localizacoes[,h])-length(which(is.na(localizacoes[,h])))
-    posicaoMin <- 1
+#  for(h in 3:3){
+#    limitePontos <- length(localizacoes[,h])-length(which(is.na(localizacoes[,h])))
+#    posicaoMin <- 1
     #repetition by the number of points of changes
-    for(i in 1:limitePontos){
+#    for(i in 1:limitePontos){
     
       #line control variable
-      k = 1
+#      k = 1
     
       #starting the dataframe that will add the change lines
-      limiteDistanciaMax <<- localizacoes[i,h]
+#      limiteDistanciaMax <<- localizacoes[i,h]
     
       #generated change line display
-      lines(c(dados[posicaoMin,1],dados[limiteDistanciaMax,1]), c(medias[i,h],medias[i,h]), col = cores[h], lwd = 3)
+#      lines(c(dados[posicaoMin,1],dados[limiteDistanciaMax,1]), c(medias[i,h],medias[i,h]), col = cores[h], lwd = 3)
     
       #object remover containing line
-      rm(linhas, envir = .GlobalEnv)
+#      rm(linhas, envir = .GlobalEnv)
     
-      #raising the start line for the next cycle
-      posicaoMin <- limiteDistanciaMax+1
+#      #raising the start line for the next cycle
+#      posicaoMin <- limiteDistanciaMax+1
     
-    }
-  }
-    
+#    }
+#  }
+### ============================================================
+###  PLOT COM 3 EIXOS Y (cada elemento com seu eixo independente)
+### ============================================================
+
+par(mar = c(5, 4, 4, 8) + 0.2)  # aumenta margem direita para o 3º eixo
+
+
+### ============================================================
+###  1. PRIMEIRA SÉRIE (eixo y esquerdo)
+### ============================================================
+
+plot(dados[, a] ~ dados[, 1],
+     type = "l",
+     xlab = legendaX,
+     ylab = colnames(dados[a]),
+     col  = "#000000")
+
+cores <- c("#000000", "#990000", "#0000ff")
+
+# linhas horizontais de mudanças
+h <- 1
+limitePontos <- length(localizacoes[, h]) - length(which(is.na(localizacoes[, h])))
+posicaoMin  <- 1
+
+for (i in 1:limitePontos) {
+  limiteDistanciaMax <<- localizacoes[i, h]
+  lines(c(dados[posicaoMin, 1], dados[limiteDistanciaMax, 1]),
+        c(medias[i, h], medias[i, h]),
+        col = cores[h], lwd = 3)
+  posicaoMin <- limiteDistanciaMax + 1
+}
+
+
+### ============================================================
+###  2. SEGUNDA SÉRIE (eixo y no lado direito – padrão)
+### ============================================================
+
+par(new = TRUE)
+
+plot(dados[, b] ~ dados[, 1],
+     type = "l",
+     axes = FALSE,
+     ann  = FALSE,
+     col  = "#ff0000")
+
+# linhas de mudança
+h <- 2
+limitePontos <- length(localizacoes[, h]) - length(which(is.na(localizacoes[, h])))
+posicaoMin  <- 1
+
+for (i in 1:limitePontos) {
+  limiteDistanciaMax <<- localizacoes[i, h]
+  lines(c(dados[posicaoMin, 1], dados[limiteDistanciaMax, 1]),
+        c(medias[i, h], medias[i, h]),
+        col = cores[h], lwd = 3)
+  posicaoMin <- limiteDistanciaMax + 1
+}
+
+axis(4, col = "#ff0000", col.axis = "#ff0000")
+mtext(colnames(dados[b]), side = 4, line = 2.5, col = "#ff0000")
+
+
+### ============================================================
+###  3. TERCEIRA SÉRIE (terceiro eixo y deslocado à direita)
+### ============================================================
+
+par(new = TRUE)
+
+plot(dados[, c] ~ dados[, 1],
+     type = "l",
+     axes = FALSE,
+     ann  = FALSE,
+     col  = "#0099ff")
+
+# linhas de mudança
+h <- 3
+limitePontos <- length(localizacoes[, h]) - length(which(is.na(localizacoes[, h])))
+posicaoMin  <- 1
+
+for (i in 1:limitePontos) {
+  limiteDistanciaMax <<- localizacoes[i, h]
+  lines(c(dados[posicaoMin, 1], dados[limiteDistanciaMax, 1]),
+        c(medias[i, h], medias[i, h]),
+        col = cores[h], lwd = 3)
+  posicaoMin <- limiteDistanciaMax + 1
+}
+
+### --- CRIA O TERCEIRO EIXO ---
+par(xpd = NA)   # permite desenhar fora da área do plot
+
+axis(4,
+     line = 6,                   # distância do 2º eixo
+     col = "#0099ff",
+     col.axis = "#0099ff")
+
+mtext(colnames(dados[c]),
+      side = 4,
+      line = 8,
+      col = "#0099ff")
+
+par(xpd = FALSE)
+
+
+### ============================================================
+###  TÍTULO FINAL
+### ============================================================
+
+title(main = legendaTitulo,
+      xlab = legendaX)
     if(linguagem==2){
       cat("\nProxy line 1: (dashed)\n")
     }else{
@@ -430,6 +538,7 @@ comparacao <- function(linguagem, comparar, selecao, localizacoes, medias, dados
     return()
   }
 }
+
 
 
 

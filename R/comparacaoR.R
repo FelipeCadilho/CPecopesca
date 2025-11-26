@@ -282,29 +282,41 @@ comparacao <- function(linguagem, comparar, selecao, localizacoes, medias, dados
     #cores = c(1,2,3)
 
     for(h in 1:3){
-      limitePontos <- length(localizacoes[,h])-length(which(is.na(localizacoes[,h])))
-      posicaoMin <- 1
-      #repetition by the number of points of changes
-      for(i in 1:limitePontos){
 
-        #line control variable
-        k = 1
+    limitePontos <- length(localizacoes[,h]) - length(which(is.na(localizacoes[,h])))
+    posicaoMin <- 1
 
-        #starting the dataframe that will add the change lines
-        limiteDistanciaMax <<- localizacoes[i,h]
+    for(i in 1:limitePontos){
 
-        #generated change line display
-        lines(c(dados[posicaoMin,1],dados[limiteDistanciaMax,1]), c(medias[i,h],medias[i,h]), col = cores[h], lwd = 3)
+        limiteDistanciaMax <- localizacoes[i,h]
 
-        #object remover containing line
-        rm(linhas, envir = .GlobalEnv)
+        # --- H = 1 → eixo Y da esquerda ---
+        if(h == 1){
+            # usa o sistema atual (já é o da esquerda)
+            lines(c(dados[posicaoMin,1], dados[limiteDistanciaMax,1]),
+                  c(medias[i,h], medias[i,h]),
+                  col = cores[h], lwd = 3)
+        }
 
-        #raising the start line for the next cycle
-        posicaoMin <- limiteDistanciaMax+1
+        # --- H = 2 e H = 3 → eixo Y da direita ---
+        if(h %in% c(2,3)){
+            # reativa o sistema do eixo da direita
+            par(new = TRUE)
+            plot(NA, NA,
+                 xlim = range(dados[,1]),
+                 ylim = c(yMin2, yMax2],
+                 axes = FALSE, xlab = "", ylab = "")
 
+            lines(c(dados[posicaoMin,1], dados[limiteDistanciaMax,1]),
+                  c(medias[i,h],       
+                    medias[i,h]),
+                  col = cores[h], lwd = 3)
+        }
+
+        posicaoMin <- limiteDistanciaMax + 1
       }
     }
-
+    
     if(linguagem==2){
       cat("\nProxy line 1: (dashed)\n")
     }else{
@@ -382,6 +394,7 @@ comparacao <- function(linguagem, comparar, selecao, localizacoes, medias, dados
     return()
   }
 }
+
 
 
 

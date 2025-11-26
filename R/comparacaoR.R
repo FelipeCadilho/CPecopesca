@@ -254,6 +254,7 @@ comparacao <- function(linguagem, comparar, selecao, localizacoes, medias, dados
          col = "#000000")#,
          #lty  = 1,
          #ylim = c(yMin,yMax))
+     cores = c("#000000","#990000","#0000ff")
      for(h in 1:1){
     limitePontos <- length(localizacoes[,h])-length(which(is.na(localizacoes[,h])))
     posicaoMin <- 1
@@ -301,7 +302,7 @@ comparacao <- function(linguagem, comparar, selecao, localizacoes, medias, dados
           xlab = legendaX)
 
     #change line colors
-    cores = c("#000000","#990000","#0000ff")
+    #cores = c("#000000","#990000","#0000ff")
     #cores = c(1,2,3)
 
   for(h in 2:3){
@@ -405,6 +406,7 @@ comparacao <- function(linguagem, comparar, selecao, localizacoes, medias, dados
     return()
   }
 }
+
 
 
 

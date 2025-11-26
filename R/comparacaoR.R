@@ -202,59 +202,74 @@ comparacao <- function(linguagem, comparar, selecao, localizacoes, medias, dados
     limiteDistanciaMax <<- length(dados[,1])
 
     #determining the lower limit of the y-axis
-    if(linguagem==2){
-      cat("\nPlease provide the lower limit of the y-axis:\n")
-    }else{
-      cat("\nInforme o limite inferior do eixo y:\n")
-    }
-    yMin <- scan(n=1)
+    #if(linguagem==2){
+    #  cat("\nPlease provide the lower limit of the y-axis:\n")
+    #}else{
+    #  cat("\nInforme o limite inferior do eixo y:\n")
+    #}
+    #yMin <- scan(n=1)
 
     #determining the upper limit of the y-axis
-    if(linguagem==2){
-      cat("\nPlease provide the upper limit of the y-axis:\n")
-    }else{
-      cat("\nInforme o limite superior do eixo y:\n")
-    }
-    yMax <- scan(n=1)
+    #if(linguagem==2){
+    #  cat("\nPlease provide the upper limit of the y-axis:\n")
+    #}else{
+    #  cat("\nInforme o limite superior do eixo y:\n")
+    #}
+    #yMax <- scan(n=1)
 
     #determining whether to assign limits to the second y-axis
-    if(linguagem==2){
-      cat("\nDo you want to specify the minimum and maximum values ​​for the second y-axis? Y/N\n")
-    }else{
-      cat("\nDeseja informar os valores mínimo e máximo para o segundo eixo y? S/N\n")
-    }
-    yaxis2 <- toupper(readLines(n=1))
+    #if(linguagem==2){
+    #  cat("\nDo you want to specify the minimum and maximum values ​​for the second y-axis? Y/N\n")
+    #}else{
+    #  cat("\nDeseja informar os valores mínimo e máximo para o segundo eixo y? S/N\n")
+    #}
+    #yaxis2 <- toupper(readLines(n=1))
 
-    if(yaxis2 == "N" || is.null(yaxis2) || yaxis2 == ""){
-      yMin2 = yMin
-      yMax2 = yMax
-    }else if(yaxis2 == "Y" || yaxis2 == "S"){
-      #Y=2 determining the lower limit of the y-axis
-      if(linguagem==2){
-        cat("\nPlease provide the lower limit of the y-axis:\n")
-      }else{
-        cat("\nInforme o limite inferior do eixo y:\n")
-      }
-      yMin2 <- scan(n=1)
+    #if(yaxis2 == "N" || is.null(yaxis2) || yaxis2 == ""){
+    #  yMin2 = yMin
+    #  yMax2 = yMax
+    #}else if(yaxis2 == "Y" || yaxis2 == "S"){
+    #  #Y=2 determining the lower limit of the y-axis
+    #  if(linguagem==2){
+    #    cat("\nPlease provide the lower limit of the y-axis:\n")
+    #  }else{
+    #    cat("\nInforme o limite inferior do eixo y:\n")
+    #  }
+    #  yMin2 <- scan(n=1)
   
       #determining the upper limit of the y-axis
-      if(linguagem==2){
-        cat("\nPlease provide the upper limit of the y-axis:\n")
-      }else{
-        cat("\nInforme o limite superior do eixo y:\n")
-      }
-      yMax2 <- scan(n=1)
-    }
+    #  if(linguagem==2){
+    #    cat("\nPlease provide the upper limit of the y-axis:\n")
+    #  }else{
+    #    cat("\nInforme o limite superior do eixo y:\n")
+    #  }
+    #  yMax2 <- scan(n=1)
+    #}
     #generation of the graph that will later receive the change lines
     par(mar = c(5, 4, 4, 4) + 0.25)
     plot(dados[,a]~dados[,1],
          type = "l",
          xlab = legendaX,
          ylab = colnames(dados[a]),
-         col = "#000000",
+         col = "#000000")#,
          #lty  = 1,
-         ylim = c(yMin,yMax))
-   
+         #ylim = c(yMin,yMax))
+   par(new=TRUE)
+    plot(dados[,b]~dados[,1],
+         type = "l",
+         axes = FALSE,
+         ann  = FALSE,
+         col = "#ff0000")#,
+         #lty   = 2,
+         #ylim = c(yMin2,yMax2))
+    par(new=TRUE)
+    plot(dados[,c]~dados[,1],
+         type = "l",
+         axes = FALSE,
+         ann  = FALSE,
+         col = "#0099ff")#,
+         #lty  = 3),
+         #ylim = c(yMin2,yMax2))
     mtext(paste(colnames(dados[b]),",",colnames(dados[c])),
           side=4,
           line=3)
@@ -267,46 +282,28 @@ comparacao <- function(linguagem, comparar, selecao, localizacoes, medias, dados
     #cores = c(1,2,3)
 
   for(h in 1:3){
-    if(h>1){
-       par(new=TRUE)
-    plot(dados[,b]~dados[,1],
-         type = "l",
-         axes = FALSE,
-         ann  = FALSE,
-         col = "#ff0000",
-         #lty   = 2,
-         ylim = c(yMin2,yMax2))
-    par(new=TRUE)
-    plot(dados[,c]~dados[,1],
-         type = "l",
-         axes = FALSE,
-         ann  = FALSE,
-         col = "#0099ff",
-         #lty  = 3,
-         ylim = c(yMin2,yMax2))
+    limitePontos <- length(localizacoes[,h])-length(which(is.na(localizacoes[,h])))
+    posicaoMin <- 1
+    #repetition by the number of points of changes
+    for(i in 1:limitePontos){
+    
+      #line control variable
+      k = 1
+    
+      #starting the dataframe that will add the change lines
+      limiteDistanciaMax <<- localizacoes[i,h]
+    
+      #generated change line display
+      lines(c(dados[posicaoMin,1],dados[limiteDistanciaMax,1]), c(medias[i,h],medias[i,h]), col = cores[h], lwd = 3)
+    
+      #object remover containing line
+      rm(linhas, envir = .GlobalEnv)
+    
+      #raising the start line for the next cycle
+      posicaoMin <- limiteDistanciaMax+1
+    
     }
-  limitePontos <- length(localizacoes[,h])-length(which(is.na(localizacoes[,h])))
-  posicaoMin <- 1
-  #repetition by the number of points of changes
-  for(i in 1:limitePontos){
-    
-    #line control variable
-    k = 1
-    
-    #starting the dataframe that will add the change lines
-    limiteDistanciaMax <<- localizacoes[i,h]
-    
-    #generated change line display
-    lines(c(dados[posicaoMin,1],dados[limiteDistanciaMax,1]), c(medias[i,h],medias[i,h]), col = cores[h], lwd = 3)
-    
-    #object remover containing line
-    rm(linhas, envir = .GlobalEnv)
-    
-    #raising the start line for the next cycle
-    posicaoMin <- limiteDistanciaMax+1
-    
   }
-}
     
     if(linguagem==2){
       cat("\nProxy line 1: (dashed)\n")
@@ -385,6 +382,7 @@ comparacao <- function(linguagem, comparar, selecao, localizacoes, medias, dados
     return()
   }
 }
+
 
 
 

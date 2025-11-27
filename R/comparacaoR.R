@@ -356,8 +356,8 @@ comparacao <- function(linguagem, comparar, selecao, localizacoes, medias, dados
 ###  PLOT COM 3 EIXOS Y (cada elemento com seu eixo independente)
 ### ============================================================
 
-par(mar = c(5, 4, 4, 8) + 0.2)  # aumenta margem direita para o 3º eixo
-
+#par(mar = c(5, 4, 4, 8) + 0.2)  # aumenta margem direita para o 3º eixo
+par(mar = c(5, 4, 4, 10) + 0.2)
 
 ### ============================================================
 ###  1. PRIMEIRA SÉRIE (eixo y esquerdo)
@@ -443,17 +443,16 @@ for (i in 1:limitePontos) {
 par(xpd = NA)   # permite desenhar fora da área do plot
 
 axis(4,
-     line = 6,                   # distância do 2º eixo
+     line = 4,              # antes era 6
      col = "#0099ff",
      col.axis = "#0099ff")
 
 mtext(colnames(dados[c]),
       side = 4,
-      line = 8,
+      line = 6,             # antes era 8
       col = "#0099ff")
-
+    
 par(xpd = FALSE)
-
 
 ### ============================================================
 ###  TÍTULO FINAL
@@ -538,6 +537,7 @@ title(main = legendaTitulo,
     return()
   }
 }
+
 
 
 

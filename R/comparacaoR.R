@@ -492,6 +492,8 @@ title(main = legendaTitulo,
     #abline(h=rep,lty=2)
     #text(x = 200, y = rep+0.05,"Mean-2*SD")
 
+    yMax <- round(max(dados[,a]),0)
+    
     if(linguagem==2){
       cat("\nValue of the distance where the age is 0:\n")
     }else{
@@ -500,9 +502,7 @@ title(main = legendaTitulo,
     rep <- scan(n=1)
     abline(v=rep,col="#cccccc")
     text(x = rep+0.03, y = yMax-0.05,"birth")
-
-    yMax <- round(max(dados[,a]),0)
-    
+   
     if(linguagem==2){
       cat("\nValue of the distance where the age is 1:\n")
     }else{
@@ -539,6 +539,7 @@ title(main = legendaTitulo,
     return()
   }
 }
+
 
 
 

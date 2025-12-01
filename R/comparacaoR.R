@@ -362,11 +362,24 @@ par(mar = c(5, 4, 4, 10) + 0.2)
 ### ============================================================
 ###  1. PRIMEIRA SÉRIE (eixo y esquerdo)
 ### ============================================================
-
+if(linguagem==2){
+      cat("\nPlease provide the lower limit of the 1st y-axis:\n")
+    }else{
+      cat("\nInforme o limite inferior do 1º eixo y:\n")
+    }
+yMin1 <- scan(n=1)
+if(linguagem==2){
+    cat("\nPlease provide the upper limit of the 1st y-axis:\n")
+  }else{
+    cat("\nInforme o limite superior do 1º eixo y:\n")
+  }
+yMax1 <- scan(n=1)
+    
 plot(dados[, a] ~ dados[, 1],
      type = "l",
      xlab = legendaX,
      ylab = colnames(dados[a]),
+     ylim = c(yMin1,yMax1),
      col  = "#000000")
 
 cores <- c("#000000", "#990000", "#0000ff")
@@ -388,13 +401,25 @@ for (i in 1:limitePontos) {
 ### ============================================================
 ###  2. SEGUNDA SÉRIE (eixo y no lado direito – padrão)
 ### ============================================================
-
+if(linguagem==2){
+      cat("\nPlease provide the lower limit of the 2nd y-axis:\n")
+    }else{
+      cat("\nInforme o limite inferior do 2º eixo y:\n")
+    }
+yMin2 <- scan(n=1)
+if(linguagem==2){
+    cat("\nPlease provide the upper limit of the 2nd y-axis:\n")
+  }else{
+    cat("\nInforme o limite superior 2º do eixo y:\n")
+  }
+yMax2 <- scan(n=1)
 par(new = TRUE)
 
 plot(dados[, b] ~ dados[, 1],
      type = "l",
      axes = FALSE,
      ann  = FALSE,
+     ylim = c(yMin2,yMax2),
      col  = "#ff0000")
 
 # linhas de mudança
@@ -417,13 +442,25 @@ mtext(colnames(dados[b]), side = 4, line = 2.5, col = "#ff0000")
 ### ============================================================
 ###  3. TERCEIRA SÉRIE (terceiro eixo y deslocado à direita)
 ### ============================================================
-
+if(linguagem==2){
+      cat("\nPlease provide the lower limit of the 3rd y-axis:\n")
+    }else{
+      cat("\nInforme o limite inferior do 3º eixo y:\n")
+    }
+yMin3 <- scan(n=1)
+if(linguagem==2){
+    cat("\nPlease provide the upper limit of the 3rd y-axis:\n")
+  }else{
+    cat("\nInforme o limite superior 3º do eixo y:\n")
+  }
+yMax3 <- scan(n=1)
 par(new = TRUE)
 
 plot(dados[, c] ~ dados[, 1],
      type = "l",
      axes = FALSE,
      ann  = FALSE,
+     ylim = c(yMin3,yMax3),
      col  = "#0099ff")
 
 # linhas de mudança
@@ -492,7 +529,7 @@ title(main = legendaTitulo,
     #abline(h=rep,lty=2)
     #text(x = 200, y = rep+0.05,"Mean-2*SD")
 
-    yMax <- round(max(dados[,a]),0)
+    #yMax <- round(max(dados[,a]),0)
     
     if(linguagem==2){
       cat("\nValue of the distance where the age is 0:\n")
@@ -501,7 +538,7 @@ title(main = legendaTitulo,
     }
     rep <- scan(n=1)
     abline(v=rep,col="#cccccc")
-    text(x = rep+0.03, y = yMax-0.05,"birth")
+    text(x = rep+0.03, y = yMax1-0.05,"birth")
    
     if(linguagem==2){
       cat("\nValue of the distance where the age is 1:\n")
@@ -510,7 +547,7 @@ title(main = legendaTitulo,
     }
     rep <- scan(n=1)
     abline(v=rep,col="#cccccc")
-    text(x = rep+0.03, y = yMax-0.05,"1")
+    text(x = rep+0.03, y = yMax1-0.05,"1")
 
     if(linguagem==2){
       cat("\nValue of the distance where the age is 2:\n")
@@ -519,7 +556,7 @@ title(main = legendaTitulo,
     }
     rep <- scan(n=1)
     abline(v=rep,col="#cccccc")
-    text(x = rep+0.03, y = yMax-0.05,"2 years old")
+    text(x = rep+0.03, y = yMax1-0.05,"2 years old")
 
     #object remover
     rm(limiteDistanciaMin, envir = .GlobalEnv)
@@ -539,6 +576,7 @@ title(main = legendaTitulo,
     return()
   }
 }
+
 
 
 

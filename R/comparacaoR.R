@@ -530,6 +530,8 @@ title(main = legendaTitulo,
     #text(x = 200, y = rep+0.05,"Mean-2*SD")
 
     #yMax <- round(max(dados[,a]),0)
+    yVetor<- c(yMax1,yMax2,yMax3)
+    yMaior <- max(yVetor)
     
     if(linguagem==2){
       cat("\nValue of the distance where the age is 0:\n")
@@ -538,7 +540,7 @@ title(main = legendaTitulo,
     }
     rep <- scan(n=1)
     abline(v=rep,col="#cccccc")
-    text(x = rep+0.03, y = yMax1-0.05,"birth")
+    text(x = rep+0.03, y = yMaior-0.05,"birth")
    
     if(linguagem==2){
       cat("\nValue of the distance where the age is 1:\n")
@@ -547,7 +549,7 @@ title(main = legendaTitulo,
     }
     rep <- scan(n=1)
     abline(v=rep,col="#cccccc")
-    text(x = rep+0.03, y = yMax1-0.05,"1")
+    text(x = rep+0.03, y = yMaior-0.05,"1")
 
     if(linguagem==2){
       cat("\nValue of the distance where the age is 2:\n")
@@ -556,7 +558,7 @@ title(main = legendaTitulo,
     }
     rep <- scan(n=1)
     abline(v=rep,col="#cccccc")
-    text(x = rep+0.03, y = yMax1-0.05,"2 years old")
+    text(x = rep+0.03, y = yMaior-0.05,"2 years old")
 
     #object remover
     rm(limiteDistanciaMin, envir = .GlobalEnv)
@@ -576,6 +578,7 @@ title(main = legendaTitulo,
     return()
   }
 }
+
 
 
 

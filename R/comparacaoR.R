@@ -396,7 +396,14 @@ for (i in 1:limitePontos) {
         col = cores[h], lwd = 3)
   posicaoMin <- limiteDistanciaMax + 1
 }
-
+    if(linguagem==2){
+      cat("\nProxy line 1: (dashed)\n")
+    }else{
+      cat("\nLinha do proxy 1: (traçada)\n")
+    }
+    rep <- scan(n=1)
+    abline(h=rep,lty=2,col="#000000")
+    #text(x = 200, y = rep+0.05,'Maximum')
 
 ### ============================================================
 ###  2. SEGUNDA SÉRIE (eixo y no lado direito – padrão)
@@ -437,6 +444,14 @@ for (i in 1:limitePontos) {
 
 axis(4, col = "#ff0000", col.axis = "#ff0000")
 mtext(colnames(dados[b]), side = 4, line = 2.5, col = "#ff0000")
+if(linguagem==2){
+      cat("\nProxy line 2: (dashed)\n")
+    }else{
+      cat("\nLinha do proxy 2: (traçada)\n")
+    }
+    rep <- scan(n=1)
+    abline(h=rep,lty=2,col="#ff0000")
+    #text(x = 200, y = rep+0.05,"Minimum")
 
 
 ### ============================================================
@@ -490,39 +505,21 @@ mtext(colnames(dados[c]),
       col = "#0099ff")
     
 par(xpd = FALSE)
-
+    
+if(linguagem==2){
+      cat("\nProxy line 3: (dotted)\n")
+    }else{
+      cat("\nLinha do proxy 3: (pontilhada)\n")
+    }
+    rep <- scan(n=1)
+    abline(h=rep,lty=3,col="#0099ff")
+    #text(x = 200, y = rep+0.05,"Mean-1*SD")
 ### ============================================================
 ###  TÍTULO FINAL
 ### ============================================================
 
 title(main = legendaTitulo,
       xlab = legendaX)
-    if(linguagem==2){
-      cat("\nProxy line 1: (dashed)\n")
-    }else{
-      cat("\nLinha do proxy 1: (traçada)\n")
-    }
-    rep <- scan(n=1)
-    abline(h=rep,lty=2)
-    #text(x = 200, y = rep+0.05,'Maximum')
-
-    if(linguagem==2){
-      cat("\nProxy line 2: (dashed)\n")
-    }else{
-      cat("\nLinha do proxy 2: (traçada)\n")
-    }
-    rep <- scan(n=1)
-    abline(h=rep,lty=2)
-    #text(x = 200, y = rep+0.05,"Minimum")
-
-    if(linguagem==2){
-      cat("\nProxy line 3: (dotted)\n")
-    }else{
-      cat("\nLinha do proxy 3: (pontilhada)\n")
-    }
-    rep <- scan(n=1)
-    abline(h=rep,lty=3)
-    #text(x = 200, y = rep+0.05,"Mean-1*SD")
 
     #cat("\nMean-2*SD:\n")
     #rep <- scan(n=1)
@@ -578,6 +575,7 @@ title(main = legendaTitulo,
     return()
   }
 }
+
 
 
 

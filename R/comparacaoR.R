@@ -77,6 +77,30 @@ comparacao <- function(linguagem, comparar, selecao, localizacoes, medias, dados
          ylab = colnames(dados[a]),
          col = "#000000",
          ylim = c(yMin,yMax))
+    # linhas horizontais de mudanças
+    h <- 1
+    limitePontos <- length(localizacoes[, h]) - length(which(is.na(localizacoes[, h])))
+    posicaoMin  <- 1
+
+    for (i in 1:limitePontos) {
+        limiteDistanciaMax <<- localizacoes[i, h]
+        lines(c(dados[posicaoMin, 1], dados[limiteDistanciaMax, 1]),
+        c(medias[i, h], medias[i, h]),
+        col = cores[h], lwd = 3)
+        posicaoMin <- limiteDistanciaMax + 1
+    }
+    if(linguagem==2){
+      cat("\nProxy line 1: (dashed)\n")
+    }else{
+      cat("\nLinha do proxy 1: (traçada)\n")
+    }
+    rep <- scan(n=1)
+    abline(h=rep,lty=2,col="#000000")
+    #text(x = 200, y = rep+0.05,'Maximum')
+    
+    #=============
+    # y-axys 2
+    #=============   
     par(new=TRUE)
     plot(dados[,b]~dados[,1],
          type="l",
@@ -86,32 +110,55 @@ comparacao <- function(linguagem, comparar, selecao, localizacoes, medias, dados
          ylim = c(yMin2,yMax2))
     axis(4, col = "#ff0000", col.axis = "#ff0000")
     mtext(colnames(dados[b]), side = 4, line = 2.5, col = "#ff0000")
-    title(main = legendaTitulo, xlab = legendaX)    
+    title(main = legendaTitulo, xlab = legendaX) 
+    
     cores = c("#000000","#990000")
-    for(h in 1:2){
+    # linhas de mudança
+    h <- 2
+    limitePontos <- length(localizacoes[, h]) - length(which(is.na(localizacoes[, h])))
+    posicaoMin  <- 1
 
-      limitePontos <- length(localizacoes[,h])-length(which(is.na(localizacoes[,h])))
-      posicaoMin <- 1
-      #repetition by the number of points of changes
-      for(i in 1:limitePontos){
+    for (i in 1:limitePontos) {
+      limiteDistanciaMax <<- localizacoes[i, h]
+      lines(c(dados[posicaoMin, 1], dados[limiteDistanciaMax, 1]),
+            c(medias[i, h], medias[i, h]),
+            col = cores[h], lwd = 3)
+      posicaoMin <- limiteDistanciaMax + 1
+    }
+
+    if(linguagem==2){
+          cat("\nProxy line 2: (dashed)\n")
+    }else{
+          cat("\nLinha do proxy 2: (traçada)\n")
+    }
+    rep <- scan(n=1)
+    abline(h=rep,lty=2,col="#ff0000")
+    #text(x = 200, y = rep+0.05,"Minimum")
+    
+    #for(h in 1:2){
+
+    #  limitePontos <- length(localizacoes[,h])-length(which(is.na(localizacoes[,h])))
+    #  posicaoMin <- 1
+    #  #repetition by the number of points of changes
+    #  for(i in 1:limitePontos){
 
         #line control variable
-        k = 1
+    #    k = 1
 
         #starting the dataframe that will add the change lines
-        limiteDistanciaMax <<- localizacoes[i,h]
+    #    limiteDistanciaMax <<- localizacoes[i,h]
 
         #generated change line display
-        lines(c(dados[posicaoMin,1],dados[limiteDistanciaMax,1]), c(medias[i,h],medias[i,h]), col = cores[h], lwd = 3)
+    #    lines(c(dados[posicaoMin,1],dados[limiteDistanciaMax,1]), c(medias[i,h],medias[i,h]), col = cores[h], lwd = 3)
 
         #object remover containing line
-        rm(linhas, envir = .GlobalEnv)
+    #    rm(linhas, envir = .GlobalEnv)
 
         #raising the start line for the next cycle
-        posicaoMin <- limiteDistanciaMax+1
+    #    posicaoMin <- limiteDistanciaMax+1
 
-      }
-    }
+    # }
+    #}
 
     if(linguagem==2){
       cat("\nProxy line 1: (dashed)\n")
@@ -572,6 +619,7 @@ title(main = legendaTitulo,
     return()
   }
 }
+
 
 
 

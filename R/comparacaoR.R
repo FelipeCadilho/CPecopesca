@@ -32,7 +32,7 @@ comparacao <- function(linguagem, comparar, selecao, localizacoes, medias, dados
       cat("\nInforme o limite inferior do eixo y:\n")
     }
     yMin <- scan(n=1)
-
+    
     #determining the upper limit of the y-axis
     if(linguagem==2){
       cat("\nPlease provide the upper limit of the y-axis:\n")
@@ -56,7 +56,7 @@ comparacao <- function(linguagem, comparar, selecao, localizacoes, medias, dados
       cat("\nInforme o limite superior do eixo y:\n")
     }
     yMax2 <- scan(n=1)
-    }
+    
     #generation of the graph that will later receive the change lines
     par(mar = c(5, 4, 4, 4) + 0.25)
     plot(dados[,a]~dados[,1],
@@ -608,6 +608,7 @@ title(main = legendaTitulo,
     return()
   }
 }
+
 
 
 

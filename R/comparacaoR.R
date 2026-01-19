@@ -77,7 +77,9 @@ comparacao <- function(linguagem, comparar, selecao, localizacoes, medias, dados
          ylab = colnames(dados[a]),
          col = "#000000",
          ylim = c(yMin,yMax))
+    
     # linhas horizontais de mudanças
+    cores = c("#000000","#990000")
     h <- 1
     limitePontos <- length(localizacoes[, h]) - length(which(is.na(localizacoes[, h])))
     posicaoMin  <- 1
@@ -110,9 +112,8 @@ comparacao <- function(linguagem, comparar, selecao, localizacoes, medias, dados
          ylim = c(yMin2,yMax2))
     axis(4, col = "#ff0000", col.axis = "#ff0000")
     mtext(colnames(dados[b]), side = 4, line = 2.5, col = "#ff0000")
-    title(main = legendaTitulo, xlab = legendaX) 
+    title(main = legendaTitulo, xlab = legendaX)     
     
-    cores = c("#000000","#990000")
     # linhas de mudança
     h <- 2
     limitePontos <- length(localizacoes[, h]) - length(which(is.na(localizacoes[, h])))
@@ -619,6 +620,7 @@ title(main = legendaTitulo,
     return()
   }
 }
+
 
 
 

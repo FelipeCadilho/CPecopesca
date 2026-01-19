@@ -184,8 +184,8 @@ comparacao <- function(linguagem, comparar, selecao, localizacoes, medias, dados
     }
     rep <- scan(n=1)
     abline(v=rep,col="#cccccc")
-    text(x = rep+0.03, y = yMax-0.05,"birth")
-
+    text(x = rep+0.03, y = yMaior-0.05,"birth")
+   
     if(linguagem==2){
       cat("\nValue of the distance where the age is 1:\n")
     }else{
@@ -193,7 +193,7 @@ comparacao <- function(linguagem, comparar, selecao, localizacoes, medias, dados
     }
     rep <- scan(n=1)
     abline(v=rep,col="#cccccc")
-    text(x = rep+0.03, y = yMax-0.05,"1")
+    text(x = rep+0.03, y = yMaior-0.05,"1")
 
     if(linguagem==2){
       cat("\nValue of the distance where the age is 2:\n")
@@ -202,7 +202,7 @@ comparacao <- function(linguagem, comparar, selecao, localizacoes, medias, dados
     }
     rep <- scan(n=1)
     abline(v=rep,col="#cccccc")
-    text(x = rep+0.03, y = yMax-0.05,"2 years old")
+    text(x = rep+0.03, y = yMaior-0.05,"2 years old")
 
     #object remover
     rm(limiteDistanciaMin, envir = .GlobalEnv)
@@ -604,6 +604,7 @@ title(main = legendaTitulo,
     return()
   }
 }
+
 
 
 

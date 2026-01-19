@@ -76,20 +76,18 @@ comparacao <- function(linguagem, comparar, selecao, localizacoes, medias, dados
          xlab = legendaX,
          ylab = colnames(dados[a]),
          col = "#000000",
-         ylim = c(yMin,yMax))
+         ylim = c(yMin,yMax),
+         col  = "#000000")
     par(new=TRUE)
     plot(dados[,b]~dados[,1],
          type="l",
          axes=FALSE,
          ann=FALSE,
-         col = "#ff0000",
+         col = "#990000",
          ylim = c(yMin2,yMax2))
-    mtext(colnames(dados[b]),
-          side=4,
-          line=3)
-    axis(4)
-    title(main = legendaTitulo,
-          xlab = legendaX)
+    axis(4, col = "#ff0000", col.axis = "#ff0000")
+    mtext(colnames(dados[b]), side = 4, line = 2.5, col = "#ff0000")
+    title(main = legendaTitulo, xlab = legendaX)    
     cores = c("#000000","#990000")
     for(h in 1:2){
 
@@ -575,6 +573,7 @@ title(main = legendaTitulo,
     return()
   }
 }
+
 
 
 

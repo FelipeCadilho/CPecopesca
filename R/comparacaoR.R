@@ -83,7 +83,7 @@ comparacao <- function(linguagem, comparar, selecao, localizacoes, medias, dados
          type="l",
          axes=FALSE,
          ann=FALSE,
-         col = "#990000",
+         col = "#ff0000",
          ylim = c(yMin2,yMax2))
     axis(4, col = "#ff0000", col.axis = "#ff0000")
     mtext(colnames(dados[b]), side = 4, line = 2.5, col = "#ff0000")
@@ -573,6 +573,7 @@ title(main = legendaTitulo,
     return()
   }
 }
+
 
 
 

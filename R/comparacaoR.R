@@ -25,36 +25,32 @@ comparacao <- function(linguagem, comparar, selecao, localizacoes, medias, dados
     #end row of distance column
     limiteDistanciaMax <<- length(dados[,1])
 
-    #Y=1 determining the lower limit of the y-axis
+    # 1st y-axis limit
     if(linguagem==2){
-      cat("\nPlease provide the lower limit of the y-axis:\n")
+      cat("\nPlease provide the lower limit of the 1st y-axis:\n")
     }else{
-      cat("\nInforme o limite inferior do eixo y:\n")
+      cat("\nInforme o limite inferior do 1º eixo y:\n")
     }
     yMin <- scan(n=1)
-    
-    #determining the upper limit of the y-axis
     if(linguagem==2){
-      cat("\nPlease provide the upper limit of the y-axis:\n")
-    }else{
-      cat("\nInforme o limite superior do eixo y:\n")
-    }
+        cat("\nPlease provide the upper limit of the 1st y-axis:\n")
+      }else{
+        cat("\nInforme o limite superior do 1º eixo y:\n")
+      }
     yMax <- scan(n=1)
 
-    #determining whether to assign limits to the second y-axis
+    # 2nd y-axis limit
     if(linguagem==2){
-      cat("\nPlease provide the lower limit of the y-axis:\n")
+      cat("\nPlease provide the lower limit of the 2nd y-axis:\n")
     }else{
-      cat("\nInforme o limite inferior do eixo y:\n")
+      cat("\nInforme o limite inferior do 2º eixo y:\n")
     }
     yMin2 <- scan(n=1)
-  
-    #determining the upper limit of the y-axis
     if(linguagem==2){
-      cat("\nPlease provide the upper limit of the y-axis:\n")
-    }else{
-      cat("\nInforme o limite superior do eixo y:\n")
-    }
+        cat("\nPlease provide the upper limit of the 2nd y-axis:\n")
+      }else{
+        cat("\nInforme o limite superior 2º do eixo y:\n")
+      }
     yMax2 <- scan(n=1)
     
     #generation of the graph that will later receive the change lines
@@ -608,6 +604,7 @@ title(main = legendaTitulo,
     return()
   }
 }
+
 
 
 

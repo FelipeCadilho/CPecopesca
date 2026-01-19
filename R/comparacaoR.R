@@ -177,6 +177,9 @@ comparacao <- function(linguagem, comparar, selecao, localizacoes, medias, dados
     #abline(h=rep,lty=2)
     #text(x = 200, y = rep+0.05,"Mean-2*SD")
 
+    yVetor<- c(yMax,yMax2)
+    yMaior <- max(yVetor)
+    
     if(linguagem==2){
       cat("\nValue of the distance where the age is 0:\n")
     }else{
@@ -604,6 +607,7 @@ title(main = legendaTitulo,
     return()
   }
 }
+
 
 
 

@@ -76,8 +76,7 @@ comparacao <- function(linguagem, comparar, selecao, localizacoes, medias, dados
          xlab = legendaX,
          ylab = colnames(dados[a]),
          col = "#000000",
-         ylim = c(yMin,yMax),
-         col  = "#000000")
+         ylim = c(yMin,yMax))
     par(new=TRUE)
     plot(dados[,b]~dados[,1],
          type="l",
@@ -573,6 +572,7 @@ title(main = legendaTitulo,
     return()
   }
 }
+
 
 
 

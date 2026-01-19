@@ -43,31 +43,19 @@ comparacao <- function(linguagem, comparar, selecao, localizacoes, medias, dados
 
     #determining whether to assign limits to the second y-axis
     if(linguagem==2){
-      cat("\nDo you want to specify the minimum and maximum values ​​for the second y-axis? Y/N\n")
+      cat("\nPlease provide the lower limit of the y-axis:\n")
     }else{
-      cat("\nDeseja informar os valores mínimo e máximo para o segundo eixo y? S/N\n")
+      cat("\nInforme o limite inferior do eixo y:\n")
     }
-    yaxis2 <- toupper(readLines(n=1))
-
-    if(yaxis2 == "N" || is.null(yaxis2) || yaxis2 == ""){
-      yMin2 = yMin
-      yMax2 = yMax
-    }else if(yaxis2 == "Y" || yaxis2 == "S"){
-      #Y=2 determining the lower limit of the y-axis
-      if(linguagem==2){
-        cat("\nPlease provide the lower limit of the y-axis:\n")
-      }else{
-        cat("\nInforme o limite inferior do eixo y:\n")
-      }
-      yMin2 <- scan(n=1)
+    yMin2 <- scan(n=1)
   
-      #determining the upper limit of the y-axis
-      if(linguagem==2){
-        cat("\nPlease provide the upper limit of the y-axis:\n")
-      }else{
-        cat("\nInforme o limite superior do eixo y:\n")
-      }
-      yMax2 <- scan(n=1)
+    #determining the upper limit of the y-axis
+    if(linguagem==2){
+      cat("\nPlease provide the upper limit of the y-axis:\n")
+    }else{
+      cat("\nInforme o limite superior do eixo y:\n")
+    }
+    yMax2 <- scan(n=1)
     }
     #generation of the graph that will later receive the change lines
     par(mar = c(5, 4, 4, 4) + 0.25)
@@ -161,31 +149,31 @@ comparacao <- function(linguagem, comparar, selecao, localizacoes, medias, dados
     # }
     #}
 
-    if(linguagem==2){
-      cat("\nProxy line 1: (dashed)\n")
-    }else{
-      cat("\nLinha do proxy 1: (traçada)\n")
-    }
-    rep <- scan(n=1)
-    abline(h=rep,lty=2)
+    #if(linguagem==2){
+    #  cat("\nProxy line 1: (dashed)\n")
+    #}else{
+    #  cat("\nLinha do proxy 1: (traçada)\n")
+    #}
+    #rep <- scan(n=1)
+    #abline(h=rep,lty=2)
     #text(x = 200, y = rep+0.05,'Maximum')
 
-    if(linguagem==2){
-      cat("\nProxy line 2: (dashed)\n")
-    }else{
-      cat("\nLinha do proxy 2: (traçada)\n")
-    }
-    rep <- scan(n=1)
-    abline(h=rep,lty=2)
+    #if(linguagem==2){
+    #  cat("\nProxy line 2: (dashed)\n")
+    #}else{
+    #  cat("\nLinha do proxy 2: (traçada)\n")
+    #}
+    #rep <- scan(n=1)
+    #abline(h=rep,lty=2)
     #text(x = 200, y = rep+0.05,"Minimum")
 
-    if(linguagem==2){
-      cat("\nProxy line 3: (dotted)\n")
-    }else{
-      cat("\nLinha do proxy 3: (pontilhada)\n")
-    }
-    rep <- scan(n=1)
-    abline(h=rep,lty=3)
+    #if(linguagem==2){
+    #  cat("\nProxy line 3: (dotted)\n")
+    #}else{
+    #  cat("\nLinha do proxy 3: (pontilhada)\n")
+    #}
+    #rep <- scan(n=1)
+    #abline(h=rep,lty=3)
     #text(x = 200, y = rep+0.05,"Mean-1*SD")
 
     #cat("\nMean-2*SD:\n")
@@ -620,6 +608,7 @@ title(main = legendaTitulo,
     return()
   }
 }
+
 
 
 

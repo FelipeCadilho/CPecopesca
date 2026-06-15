@@ -381,7 +381,9 @@ CPecopesca <- function(idioma=1,
 
 				#column control variable
 				coluna <- 1
-
+				distancia <- vector()
+  				elemento <- vector()
+				
 				#repetition to the point of change
 				for(distancias in limiteDistanciaMin:mudanca@cpts[posicao]){
 

@@ -217,12 +217,18 @@ CPecopesca <- function(idioma=1,
 			mudaEixoY <- 0
 		}
 
+			
+		################################################################################
+		## MOVING AVERAGE
+		################################################################################
+			
 		if(idioma==2){
 			cat("\nDo you want to ajust your data by moving average? Y/N\n")
 		}else{
 			cat("\nDeseja ajustar seus dados aplicando média móvel? S/N\n")
 		}
 		ajuste <- toupper(readLines(n=1))
+
 		if(ajuste!="N"){
 			if(idioma==2){
 				cat("\nWhat interval do you will set?\n")
@@ -231,33 +237,39 @@ CPecopesca <- function(idioma=1,
 			}
 			intervalo <<- scan(n=1)
 
-			ce <<- length(dados)
-			ene <<- length(dados[,1])
-			reduzido <<- intervalo-1
-			resultado <<- dados %>% slice(-c(1:reduzido))
-			escada <<- 1
-			while(escada <= ce){
+			#total de elementos
+			total_de_elementos <- length(dados)
+			#total de linhas
+			total_de_linhas <- length(dados[,1])
+			#intervalo da média reduzido para adequar a quantidade de posições de vetor no for
+			intervalo_reduzido <- intervalo-1
+			#iniciação do objeto dataframe com a média móvel
+			media_movel <<- dados %>% slice(-((n()-intervalo_reduzido+1):n()))
+			#for começando do 2 pois a coluna 1 é da distância
+			for(coluna in 2:total_de_elementos){
 				#start-while
-				jarro <<- 1
-				for(i in intervalo:ene){
+				#reinicialização da contagem da linha
+				linha <- 1
+				for(maior in intervalo:total_de_linhas){
 					#start-for
-					aba <<- i-reduzido
-					if(escada==1){
-						#resultado[escada,jarro] <- dados[1,i]
-					}else{
-						resultado[jarro, escada] <<- mean(dados[aba:i,escada])
-					}
-					jarro <<- jarro +1
+					menor <- maior-intervalo_reduzido
+					media_movel[linha, coluna] <<- mean(dados[menor:maior,coluna])
+					linha <- linha +1
 					#end-for
-				}
-				escada <<- escada +1
-				#end=while
+				}				
+				#end-for
 			}
+			#backup dos valores iniciais
 			dadosBkp <<- dados
-			setNames(dadosBkp, names(resultado))
-			dados <<- resultado
+			setNames(dadosBkp, names(media_movel))
+			#atualização dos valores de dados com as médias móveis
+			dados <<- media_movel
 			write.table(dados, file='moving-average-CPecopesca.csv', sep=',', dec='.', row.names=FALSE)
 		}
+
+		################################################################################
+		## END MOVING AVERAGE
+		################################################################################
 
 		#amount of elements
 		elementos <<- length(dados)

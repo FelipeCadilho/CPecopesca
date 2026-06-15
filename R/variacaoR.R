@@ -272,7 +272,7 @@ CPecopesca <- function(idioma=1,
 		################################################################################
 
 		#amount of elements
-		elementos <<- length(dados)
+		quantidade_elementos <<- length(dados)
 
 		#get the sample id
 		#amostra <<- paste(legendaTitulo,amostra)
@@ -303,13 +303,13 @@ CPecopesca <- function(idioma=1,
 		## REPEAT START
 		################################################################################
 		#repetition to generate the graphs by element
-		for(a in 2:elementos){
+		for(elementos in 2:quantidade_elementos){
 
 			#get the name of the current element
-			nome <<- colnames(dados[a])
+			nome <<- colnames(dados[elementos])
 
 			#point change identification function
-			mudanca <<-cpt.mean(as.numeric(unlist(dados[,a])),
+			mudanca <<-cpt.mean(as.numeric(unlist(dados[,elementos])),
 							  penalty=penalidade,
 							  pen.value=pen.valor,
 							  method=metodo,
@@ -325,22 +325,22 @@ CPecopesca <- function(idioma=1,
 			limitePontos <<- length(mudanca@cpts)
 
 			#names for comparison
-			tt <<- a-1
+			tt <<- elementos-1
 			dfnomes[1,tt] <<- paste(tt,": ",nome,sep="")
 			colnames(dfnomes)[tt] <<- c(dfnomes[1,tt])
 
 			#allocation of results
 			for(o in 1:limitePontos){
-				resultados[1,a] <<- paste(resultados[1,a],mudanca@cpts[o])
+				resultados[1,elementos] <<- paste(resultados[1,elementos],mudanca@cpts[o])
 				localiza[o,tt] <<- mudanca@cpts[o]
-				resultados[2,a] <<- paste(resultados[1,a],dados[mudanca@cpts[o],a])
-				resultados[3,a] <<- paste(resultados[1,a],mudanca@param.est$mean[o])
+				resultados[2,elementos] <<- paste(resultados[1,elementos],dados[mudanca@cpts[o],elementos])
+				resultados[3,elementos] <<- paste(resultados[1,elementos],mudanca@param.est$mean[o])
 				media[o,tt] <<- mudanca@param.est$mean[o]
-				resultados[4,a] <<- paste(resultados[1,a],dados[mudanca@cpts[o],1])
+				resultados[4,elementos] <<- paste(resultados[1,elementos],dados[mudanca@cpts[o],1])
 			}
 
 			#current element name
-			colnames(resultados)[a] <<- c(nome)
+			colnames(resultados)[elementos] <<- c(nome)
 
 			if(mudaEixoY==1){
 				#determining the lower limit of the y-axis
@@ -360,7 +360,7 @@ CPecopesca <- function(idioma=1,
 				yMax <- scan(n=1)
 
 				#generation of the graph that will later receive the change lines
-				plot(x = dados[,1], y = dados[,a], type = "l",
+				plot(x = dados[,1], y = dados[,elementos], type = "l",
 					xlab = paste(legendaX),
 					ylab = nome,
 					ylim = c(yMin,yMax))
@@ -369,7 +369,7 @@ CPecopesca <- function(idioma=1,
 					ylab = nome)
 			}else{
 				#generation of the graph that will later receive the change lines
-				plot(x = dados[,1], y = dados[,a], type = "l",
+				plot(x = dados[,1], y = dados[,elementos], type = "l",
 					xlab = paste(legendaX),
 					ylab = nome)
 				title(main = amostra,
@@ -377,35 +377,29 @@ CPecopesca <- function(idioma=1,
 					ylab = nome)
 			}
 			#repetition by the number of points of changes
-			for(i in 1:limitePontos){
+			for(posicao in 1:limitePontos){
 
-				#line control variable
-				k = 1
-
-				#starting the dataframe that will add the change lines
-				linhas <<- data.frame()
+				#column control variable
+				coluna <- 1
 
 				#repetition to the point of change
-				for(j in limiteDistanciaMin:mudanca@cpts[i]){
+				for(distancias in limiteDistanciaMin:mudanca@cpts[posicao]){
 
 					#assign distance value
-					linhas[k,1] <<- dados[j,1]
+					distancia[coluna] <- dados[distancias,1] 
 
 					#assign element value
-					linhas[k,2] <<- mudanca@param.est$mean[i]
+					elemento[coluna] <- mudanca@param.est$mean[posicao]
 
 					#line control variable
-					k = k+1
+					coluna = coluna + 1
 				}
 
 				#generated change line display
-				lines(x = linhas[,1], y = linhas[,2], col = "red", lwd = 3)
-
-				#object remover containing line
-				rm(linhas, envir = .GlobalEnv)
+				lines(x = distancia, y = elemento, col = "red", lwd = 3)	
 
 				#raising the start line for the next cycle
-				limiteDistanciaMin <<- mudanca@cpts[i]+1
+				limiteDistanciaMin <<- mudanca@cpts[posicao]+1
 			}
 		}
 		################################################################################
@@ -413,10 +407,9 @@ CPecopesca <- function(idioma=1,
 		################################################################################
 
 		#object remover
-		rm(linhas, envir = .GlobalEnv)
 		rm(limiteDistanciaMin, envir = .GlobalEnv)
 		rm(limitePontos, envir = .GlobalEnv)
-		rm(elementos, envir = .GlobalEnv)
+		rm(quantidade_elementos, envir = .GlobalEnv)
 		rm(nome, envir = .GlobalEnv)
 		rm(configuracao, envir = .GlobalEnv)
 		rm(configuracaoParametros, envir = .GlobalEnv)

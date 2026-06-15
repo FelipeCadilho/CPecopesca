@@ -64,17 +64,30 @@ comparacao <- function(linguagem, comparar, selecao, localizacoes, medias, dados
     
     # linhas horizontais de mudanças
     cores = c("#000000","#990000")
+    
     h <- 1
     limitePontos <- length(localizacoes[, h]) - length(which(is.na(localizacoes[, h])))
     posicaoMin  <- 1
-
-    for (i in 1:limitePontos) {
-        limiteDistanciaMax <<- localizacoes[i, h]
-        lines(c(dados[posicaoMin, 1], dados[limiteDistanciaMax, 1]),
-        c(medias[i, h], medias[i, h]),
-        col = cores[h], lwd = 3)
-        posicaoMin <- limiteDistanciaMax + 1
+    
+    for(posicao in 1:limitePontos){    
+      coluna <- 1
+      distancia <- vector()
+      elemento <- vector()
+      
+      for(j in limiteDistanciaMin:localizacoes[posicao, h]){
+        #assign distance value
+        distancia[coluna] <- dados[j,1] 
+        
+        #assign element value
+        elemento[coluna] <- medias[posicao,h]
+        
+        #line control variable
+        coluna = coluna + 1
+      }
+        lines(x = distancia, y = elemento, col = cores[h], lwd = 3)
+        posicaoMin <- localizacoes[posicao, h] + 1    
     }
+    
     if(linguagem==2){
       cat("\nProxy line 1: (dashed)\n")
     }else{
@@ -103,12 +116,23 @@ comparacao <- function(linguagem, comparar, selecao, localizacoes, medias, dados
     limitePontos <- length(localizacoes[, h]) - length(which(is.na(localizacoes[, h])))
     posicaoMin  <- 1
 
-    for (i in 1:limitePontos) {
-      limiteDistanciaMax <<- localizacoes[i, h]
-      lines(c(dados[posicaoMin, 1], dados[limiteDistanciaMax, 1]),
-            c(medias[i, h], medias[i, h]),
-            col = cores[h], lwd = 3)
-      posicaoMin <- limiteDistanciaMax + 1
+    for(posicao in 1:limitePontos){    
+      coluna <- 1
+      distancia <- vector()
+      elemento <- vector()
+      
+      for(j in limiteDistanciaMin:localizacoes[posicao, h]){
+        #assign distance value
+        distancia[coluna] <- dados[j,1] 
+        
+        #assign element value
+        elemento[coluna] <- medias[posicao,h]
+        
+        #line control variable
+        coluna = coluna + 1
+      }
+        lines(x = distancia, y = elemento, col = cores[h], lwd = 3)
+        posicaoMin <- localizacoes[posicao, h] + 1    
     }
 
     if(linguagem==2){

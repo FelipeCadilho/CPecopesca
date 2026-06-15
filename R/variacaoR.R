@@ -173,7 +173,7 @@ CPecopesca <- function(idioma=1,
 			}
 		}else if(dado == "dataframe"){
 			#cria dataframe a partir dos dados do dataframe
-			dados <<- nome_dados
+			dados <<- get(nome_dados)
 		}else if(dado == "csv"){
 			if(is.null(separador)){
 				dados <<- read.csv(file = nome_dados, check.names=F, header = TRUE, encoding = "UTF-8")
